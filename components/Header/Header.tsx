@@ -9,6 +9,8 @@ import Image from 'next/image';
 
 export default function Header() {
   const { user } = useContext(UserContext);
+  console.log(user);
+
   const router = useRouter();
 
   const $isSticky = router.pathname !== '/folder';
