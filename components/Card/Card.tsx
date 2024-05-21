@@ -1,10 +1,10 @@
 import React, { ReactEventHandler, useState } from 'react';
-import defaultImage from '../../src/images/no-image.png';
+import defaultImage from '@/src/images/no-image.png';
 import { formatDateToString, formatDateToAgo } from '../../utils/date';
 import Link from 'next/link';
 import * as S from './Card.styled';
-import star from '../../src/images/star_icon.png';
-import kebab from '../../src/images/kebab_icon.png';
+import star from '@/src/images/star_icon.png';
+import kebab from '@/src/images/kebab_icon.png';
 import Modal from '../Modal/Modal';
 import Image, { StaticImageData } from 'next/image';
 

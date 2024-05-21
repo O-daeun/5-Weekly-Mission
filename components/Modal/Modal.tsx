@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import * as S from './Modal.styled';
-import CloseImage from '../../src/images/close_button.svg';
-import KakaotalkIcon from '../../src/images/share_kakaotalk.svg';
-import facebookIcon from '../../src/images/share_facebook.svg';
-import linkIcon from '../../src/images/share_link.svg';
+import CloseImage from '@/src/images/close_button.svg';
+import KakaotalkIcon from '@/src/images/share_kakaotalk.svg';
+import facebookIcon from '@/src/images/share_facebook.svg';
+import linkIcon from '@/src/images/share_link.svg';
 import shareKakao from '../../apis/shareKakao';
 import Image from 'next/image';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../Button/Button';
-import LinkIcon from '../../src/images/link_icon.png';
+import LinkIcon from '@/src/images/link_icon.png';
 
 export const Form = styled.form`
   position: relative;

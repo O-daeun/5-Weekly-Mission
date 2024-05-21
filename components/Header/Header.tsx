@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import logoImg from '../../src/images/logo.svg';
+import logoImg from '@/src/images/logo.svg';
 import { UserContext } from '../../contexts/UserContext';
 import Profile from '../Profile/Profile';
 import * as S from './Header.styled';
