@@ -2,7 +2,7 @@ import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { Layout, SectionWrap } from '../../styles/CommonPage.styled';
 import LinkInput from '../../components/LinkInput/LinkInput';
 import * as S from '../../styles/FolderPage.styled';
-import { getLinks, getFolders, getUser } from '../../apis/api';
+import { getLinks, getFolders } from '../../apis/api';
 import Search from '../../components/Search/Search';
 import CardList from '../../components/CardList/CardList';
 import MenuButton from '../../components/MenuButton/MenuButton';
@@ -14,6 +14,7 @@ import DeleteIcon from '@/src/images/delete_icon.png';
 import Modal from '../../components/Modal/Modal';
 import Image from 'next/image';
 import { UserContext } from '@/contexts/UserContext';
+import { useRouter } from 'next/router';
 
 export default function FolderPage() {
   const { user } = useContext(UserContext);
@@ -43,6 +44,7 @@ export default function FolderPage() {
     useState(false);
   const [isVisibleDeleteFolderModal, setIsVisibleDeleteFolder] =
     useState(false);
+  const router = useRouter();
 
   const CONTROLS = [
     {
