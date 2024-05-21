@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Search from '../../components/Search/Search';
-import { getFolders, getLinks, getUser } from '../../apis/api';
+import { getFolders, getLinks } from '../../apis/api';
 import { Layout, SectionWrap, TopWrap } from '../../styles/CommonPage.styled';
 import * as S from '../../styles/SharedPage.styled';
 import Profile from '../../components/Profile/Profile';
@@ -20,16 +20,20 @@ export default function SharedPage() {
   const router = useRouter();
   const { folderId } = router.query as unknown as ParamsType;
 
-  const handleLoad = useCallback(async () => {
-    const nextLinks = await getLinks(folderId || 0);
-    const { name: nextFolderName } = await getFolders(1, folderId);
-    setLinks(nextLinks);
-    setFolderName(nextFolderName);
-  }, [folderId]);
+  const handleLoad = async () => {
+    if (user) {
+      const nextLinks = await getLinks(user.id, folderId || 0);
+      const nextFolders = await getFolders(user.id, folderId);
+      const nextFolderName = nextFolders[0].name;
+
+      setLinks(nextLinks);
+      setFolderName(nextFolderName);
+    }
+  };
 
   useEffect(() => {
     handleLoad();
-  }, [handleLoad]);
+  }, [user]);
 
   return (
     <Layout>

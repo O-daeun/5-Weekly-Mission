@@ -55,7 +55,7 @@ export async function postSignIn(id: string, pw: string) {
 }
 
 export async function getFolders(userId: number | null, folderId: number) {
-  const queryParam = folderId === 0 ? '' : `?folderId=${folderId}`;
+  const queryParam = folderId === 0 ? '' : `/${folderId}`;
   const response = await axios.get(
     `${BASIC_URL}/users/${userId}/folders${queryParam}`
   );
