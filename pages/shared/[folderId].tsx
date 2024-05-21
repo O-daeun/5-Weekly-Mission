@@ -24,8 +24,8 @@ export default function SharedPage() {
     if (user) {
       const nextLinks = await getLinks(user.id, Number(folderId));
       const nextFolders = await getFolders(user.id, Number(folderId));
-
-      const nextFolderName = nextFolders.length ? nextFolders[0].name : '전체';
+      const nextFolderName =
+        nextFolders.length === 1 ? nextFolders[0].name : '전체';
 
       setLinks(nextLinks);
       setFolderName(nextFolderName);
