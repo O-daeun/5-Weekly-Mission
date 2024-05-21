@@ -15,7 +15,7 @@ export const TopWrap = styled.div`
 `;
 
 export const SectionWrap = styled.section`
-  max-width: 1060px;
+  max-width: 1124px;
   margin: 0 auto;
   padding: 0 32px 100px;
 
@@ -25,5 +25,5 @@ export const SectionWrap = styled.section`
 `;
 
 export const Layout = styled.div`
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 233px);
 `;

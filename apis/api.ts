@@ -19,7 +19,6 @@ export async function postValidateSignUp(id: string) {
   const response = await axios.post(`${BASIC_URL}/check-email`, {
     email: id,
   });
-  console.log(response);
 
   if (response.status < 200 || response.status >= 300) {
     throw new Error('이미 사용 중인 이메일입니다.');
@@ -55,9 +54,11 @@ export async function postSignIn(id: string, pw: string) {
   return result;
 }
 
-export async function getFolders(folderId: number) {
-  const queryParam = folderId === undefined ? '' : `?folderId=${folderId}`;
-  const response = await axios.get(`${BASIC_URL}/users/1/folders${queryParam}`);
+export async function getFolders(userId: number | null, folderId: number) {
+  const queryParam = folderId === 0 ? '' : `?folderId=${folderId}`;
+  const response = await axios.get(
+    `${BASIC_URL}/users/${userId}/folders${queryParam}`
+  );
   if (response.status < 200 || response.status >= 300) {
     throw new Error('사용자 데이터를 불러오는데 실패했습니다.');
   }
@@ -65,9 +66,11 @@ export async function getFolders(folderId: number) {
   return result;
 }
 
-export async function getLinks(folderId?: number) {
+export async function getLinks(userId: number | null, folderId: number) {
   const queryParam = folderId === 0 ? '' : `?folderId=${folderId}`;
-  const response = await axios.get(`${BASIC_URL}/users/1/links${queryParam}`);
+  const response = await axios.get(
+    `${BASIC_URL}/users/${userId}/links${queryParam}`
+  );
   if (response.status < 200 || response.status >= 300) {
     throw new Error('사용자 데이터를 불러오는데 실패했습니다.');
   }

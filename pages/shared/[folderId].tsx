@@ -17,14 +17,12 @@ export default function SharedPage() {
     folderId: number;
   }
 
-  console.log(user);
-
   const router = useRouter();
   const { folderId } = router.query as unknown as ParamsType;
 
   const handleLoad = useCallback(async () => {
     const nextLinks = await getLinks(folderId || 0);
-    const { name: nextFolderName } = await getFolders(folderId);
+    const { name: nextFolderName } = await getFolders(1, folderId);
     setLinks(nextLinks);
     setFolderName(nextFolderName);
   }, [folderId]);

@@ -1,8 +1,8 @@
-import React, { MouseEvent, useCallback, useEffect, useState } from 'react';
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { Layout, SectionWrap } from '../../styles/CommonPage.styled';
 import LinkInput from '../../components/LinkInput/LinkInput';
 import * as S from '../../styles/FolderPage.styled';
-import { getLinks, getFolders } from '../../apis/api';
+import { getLinks, getFolders, getUser } from '../../apis/api';
 import Search from '../../components/Search/Search';
 import CardList from '../../components/CardList/CardList';
 import MenuButton from '../../components/MenuButton/MenuButton';
@@ -13,8 +13,10 @@ import PenIcon from '../../src/images/pen_icon.png';
 import DeleteIcon from '../../src/images/delete_icon.png';
 import Modal from '../../components/Modal/Modal';
 import Image from 'next/image';
+import { UserContext } from '@/contexts/UserContext';
 
 export default function FolderPage() {
+  const { user } = useContext(UserContext);
   const [folderNames, setFolderNames] = useState(['']);
   const [folders, setFolders] = useState([
     {
@@ -84,29 +86,33 @@ export default function FolderPage() {
   };
 
   const handleLoadMenu = async () => {
-    const data: [
-      {
-        id: 0;
-        created_at: '';
-        name: '';
-        userId: 0;
-        favorite: false;
-        link: {
-          count: 0;
-        };
-      }
-    ] = await getFolders(0);
-    setFolders(data);
-    const nextFolderNames = data.map((item) => item.name);
-    const nextItemCounts = data.map((item) => item.link.count);
-    setFolderNames(nextFolderNames);
-    setItemCountsInEachFolder(nextItemCounts);
+    if (user) {
+      const data: [
+        {
+          id: 0;
+          created_at: '';
+          name: '';
+          userId: 0;
+          favorite: false;
+          link: {
+            count: 0;
+          };
+        }
+      ] = await getFolders(user.id, 0);
+      setFolders(data);
+      const nextFolderNames = data?.map((item) => item.name);
+      const nextItemCounts = data?.map((item) => item.link.count);
+      setFolderNames(nextFolderNames);
+      setItemCountsInEachFolder(nextItemCounts);
+    }
   };
 
-  const handleLoadItems = useCallback(async () => {
-    const nextLinks = await getLinks(currentFolder.id);
-    setLinks(nextLinks);
-  }, [currentFolder.id]);
+  const handleLoadItems = async () => {
+    if (user) {
+      const nextLinks = await getLinks(user.id, currentFolder.id);
+      setLinks(nextLinks);
+    }
+  };
 
   const handleAddFolderButtonClick = () => {
     setIsVisibleAddFolderModal(true);
@@ -114,11 +120,11 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadMenu();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     handleLoadItems();
-  }, [currentFolder, handleLoadItems]);
+  }, [user, currentFolder]);
 
   return (
     <Layout>
