@@ -22,8 +22,8 @@ export default function SharedPage() {
 
   const handleLoad = async () => {
     if (user) {
-      const nextLinks = await getLinks(user.id, folderId);
-      const nextFolders = await getFolders(user.id, folderId);
+      const nextLinks = await getLinks(user.id, Number(folderId));
+      const nextFolders = await getFolders(user.id, Number(folderId));
 
       const nextFolderName = nextFolders.length ? nextFolders[0].name : '전체';
 
