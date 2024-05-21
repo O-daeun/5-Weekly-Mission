@@ -31,6 +31,7 @@ export default function FolderPage() {
       },
     },
   ]);
+
   const [currentFolder, setCurrentFolder] = useState({
     id: 0,
     name: '전체',
@@ -119,6 +120,12 @@ export default function FolderPage() {
   const handleAddFolderButtonClick = () => {
     setIsVisibleAddFolderModal(true);
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/signin');
+    }
+  }, []);
 
   useEffect(() => {
     handleLoadMenu();

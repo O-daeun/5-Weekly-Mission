@@ -65,6 +65,7 @@ export default function SignInPage() {
       return;
     }
     if (!result) return;
+
     localStorage.setItem('accessToken', result.accessToken);
     const nextUser = await getUser();
     setUser(nextUser);
