@@ -6,11 +6,12 @@ import GoggleIcon from '../../src/images/login_google.svg';
 import KakaotalkIcon from '../../src/images/login_kakaotalk.svg';
 import EyeOnIcon from '../../src/images/eye_on.svg';
 import EyeOffIcon from '../../src/images/eye_off.svg';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { postSignIn } from '@/apis/api';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import { getUser, postSignIn } from '@/apis/api';
 import { useRouter } from 'next/router';
 import { validateEmail, validateSignInPassword } from '@/utils/validate';
 import useAsync from '@/hooks/useAsync';
+import { UserContext } from '@/contexts/UserContext';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
@@ -22,6 +23,7 @@ export default function SignInPage() {
   });
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const router = useRouter();
+  const { setUser } = useContext(UserContext);
   const {
     pending: signInPending,
     error: signInError,
@@ -63,7 +65,10 @@ export default function SignInPage() {
       return;
     }
     if (!result) return;
-    localStorage.setItem('accessToken', result?.accessToken);
+    localStorage.setItem('accessToken', result.accessToken);
+    const nextUser = await getUser();
+    setUser(nextUser);
+
     router.push('/folder');
   };
 

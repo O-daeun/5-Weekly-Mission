@@ -8,20 +8,18 @@ import {
 } from 'react';
 import { getUser } from '../apis/api';
 
+interface User {
+  id: number;
+  created_at: string;
+  name: string;
+  image_source: string;
+  email: string;
+  auth_id: string;
+}
+
 interface UserContextValue {
-  user:
-    | {
-        id: number;
-        created_at: string;
-        name: string;
-        image_source: string;
-        email: string;
-        auth_id: string;
-      }
-    | undefined;
-  setUser:
-    | Dispatch<SetStateAction<boolean>>
-    | Dispatch<SetStateAction<undefined>>;
+  user: User | undefined;
+  setUser: Dispatch<SetStateAction<User | undefined>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -34,7 +32,7 @@ interface Props {
 }
 
 export function UserProvider({ children }: Props) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   const handleLoadUser = async () => {
     const nextUser = await getUser();
