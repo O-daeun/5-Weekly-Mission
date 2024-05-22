@@ -87,7 +87,11 @@ export default function FolderPage() {
 
   const handleLoadItems = async () => {
     if (user) {
-      const nextLinks = await getLinks(user.id, Number(currentFolderId));
+      let nextLinks;
+      nextLinks = await getLinks(
+        user.id,
+        currentFolderId ? Number(currentFolderId) : 0
+      );
       setLinks(nextLinks);
     }
   };
@@ -108,8 +112,7 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadItems();
-    // 동적 라우팅
-  }, [user, currentFolder]);
+  }, [user, currentFolderId]);
 
   return (
     <Layout>
@@ -140,7 +143,7 @@ export default function FolderPage() {
         </S.MenuWrap>
         <S.TitleWrap>
           <S.Title>{currentFolder?.name}</S.Title>
-          {currentFolder?.name !== '전체' && (
+          {currentFolderId && (
             <S.ControlWrap>
               {CONTROLS.map((control, index) => (
                 <S.ControlButton key={index} onClick={control.onClick}>
