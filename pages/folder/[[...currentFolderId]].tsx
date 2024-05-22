@@ -17,6 +17,11 @@ import PenIcon from '@/src/images/pen_icon.png';
 import DeleteIcon from '@/src/images/delete_icon.png';
 import { FolderInterface } from '@/src/interfaces';
 
+const All_FOLDER = {
+  id: 0,
+  name: '전체',
+};
+
 export default function FolderPage() {
   const router = useRouter();
   const { currentFolderId } = router.query;
@@ -34,10 +39,7 @@ export default function FolderPage() {
       },
     },
   ]);
-  const [currentFolder, setCurrentFolder] = useState({
-    id: 0,
-    name: '전체',
-  });
+  const [currentFolder, setCurrentFolder] = useState(All_FOLDER);
   const [links, setLinks] = useState([]);
   const [itemCountsInEachFolder, setItemCountsInEachFolder] = useState([0]);
   const [isVisibleAddFolderModal, setIsVisibleAddFolderModal] = useState(false);
@@ -93,6 +95,13 @@ export default function FolderPage() {
         currentFolderId ? Number(currentFolderId) : 0
       );
       setLinks(nextLinks);
+      const nextCurrentFolder = await getFolders(
+        currentFolderId ? Number(currentFolderId) : 0,
+        user.id
+      );
+      setCurrentFolder(
+        nextCurrentFolder.length === 1 ? nextCurrentFolder[0] : All_FOLDER
+      );
     }
   };
 
