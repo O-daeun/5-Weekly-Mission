@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import * as S from '../../styles/Auth.styled';
+import * as S from '../styles/Auth.styled';
 import LogoIcon from '@/src/images/logo.svg';
 import GoggleIcon from '@/src/images/login_google.svg';
 import KakaotalkIcon from '@/src/images/login_kakaotalk.svg';

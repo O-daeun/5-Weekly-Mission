@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import * as S from '../../styles/Auth.styled';
+import * as S from '@/styles/Auth.styled';
 import LogoIcon from '@/src/images/logo.svg';
 import GoggleIcon from '@/src/images/login_google.svg';
 import KakaotalkIcon from '@/src/images/login_kakaotalk.svg';
 import EyeOnIcon from '@/src/images/eye_on.svg';
 import EyeOffIcon from '@/src/images/eye_off.svg';
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { getUser, postSignIn } from '@/apis/api';
 import { useRouter } from 'next/router';
 import { validateEmail, validateSignInPassword } from '@/utils/validate';
