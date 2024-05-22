@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import logoImg from '@/src/images/logo.svg';
-import { UserContext } from '../../contexts/UserContext';
-import Profile from '../Profile/Profile';
-import * as S from './Header.styled';
-import Link from 'next/link';
+import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Profile from '../Profile/Profile';
+import { UserContext } from '@/contexts/UserContext';
+import Link from 'next/link';
+import * as S from './Header.styled';
+import logoImg from '@/src/images/logo.svg';
 
 export default function Header() {
   const { user } = useContext(UserContext);

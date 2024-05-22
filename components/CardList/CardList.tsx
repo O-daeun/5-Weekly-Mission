@@ -1,6 +1,5 @@
-import React from 'react';
-import * as S from './CardList.styled';
 import Card from '../Card/Card';
+import * as S from './CardList.styled';
 
 interface Props {
   items: {

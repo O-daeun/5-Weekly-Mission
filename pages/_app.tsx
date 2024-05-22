@@ -1,9 +1,9 @@
-import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
-import { UserProvider } from '@/contexts/UserContext';
-import GlobalStyle from '@/styles/globals.styled';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import { UserProvider } from '@/contexts/UserContext';
+import GlobalStyle from '@/styles/globals.styled';
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();

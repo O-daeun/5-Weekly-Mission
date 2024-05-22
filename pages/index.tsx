@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import Button from '../components/Button/Button';
 import * as S from '../styles/HomePage.styled';
 

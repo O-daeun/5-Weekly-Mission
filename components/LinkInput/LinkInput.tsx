@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import * as S from './LinkInput.styled';
+import { useState } from 'react';
 import Modal from '../Modal/Modal';
+import * as S from './LinkInput.styled';
 
 interface Props {
   folderNames: string[];

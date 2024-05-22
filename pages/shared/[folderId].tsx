@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Search from '../../components/Search/Search';
-import { getFolderUser, getFolders, getLinks, getUser } from '../../apis/api';
-import { Layout, SectionWrap, TopWrap } from '../../styles/CommonPage.styled';
-import * as S from '../../styles/SharedPage.styled';
-import Profile from '../../components/Profile/Profile';
-import CardList from '../../components/CardList/CardList';
 import { useRouter } from 'next/router';
+import { getFolderUser, getFolders, getLinks } from '@/apis/api';
 import { User } from '@/src/interfaces';
+import Search from '@/components/Search/Search';
+import Profile from '@/components/Profile/Profile';
+import CardList from '@/components/CardList/CardList';
+import * as S from '@/styles/SharedPage.styled';
+import { Layout, SectionWrap, TopWrap } from '@/styles/CommonPage.styled';
 
 export default function SharedPage() {
   const [links, setLinks] = useState([]);

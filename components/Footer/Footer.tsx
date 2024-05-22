@@ -1,6 +1,5 @@
-import React from 'react';
-import FooterSnsItem from './FooterSnsItem';
 import Link from 'next/link';
+import FooterSnsItem from './FooterSnsItem';
 import * as S from './Footer.styled';
 
 const SNS_LIST = [
