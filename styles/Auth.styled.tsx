@@ -25,7 +25,7 @@ export const LogoLink = styled(Link)`
 export const TextWrap = styled.div`
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   gap: 8px;
   margin-top: 16px;
 `;

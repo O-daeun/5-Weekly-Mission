@@ -15,6 +15,7 @@ import AddWhiteIcon from '@/src/images/add_white_icon.svg';
 import ShareIcon from '@/src/images/share_icon.png';
 import PenIcon from '@/src/images/pen_icon.png';
 import DeleteIcon from '@/src/images/delete_icon.png';
+import { FolderInterface } from '@/src/interfaces';
 
 export default function FolderPage() {
   const [folderNames, setFolderNames] = useState(['']);
@@ -46,10 +47,8 @@ export default function FolderPage() {
 
   const router = useRouter();
   const { folderMenu } = router.query;
-  console.log(folderMenu);
-
   const { user } = useContext(UserContext);
-  console.log(user);
+  console.log('user', user);
 
   const CONTROLS = [
     {
@@ -94,18 +93,7 @@ export default function FolderPage() {
 
   const handleLoadMenu = async () => {
     if (user) {
-      const data: [
-        {
-          id: 0;
-          created_at: '';
-          name: '';
-          userId: 0;
-          favorite: false;
-          link: {
-            count: 0;
-          };
-        }
-      ] = await getFolders(0, user.id);
+      const data: FolderInterface[] = await getFolders(0, user.id);
       setFolders(data);
       const nextFolderNames = data?.map((item) => item.name);
       const nextItemCounts = data?.map((item) => item.link.count);
@@ -125,11 +113,11 @@ export default function FolderPage() {
     setIsVisibleAddFolderModal(true);
   };
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.replace('/signin');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!localStorage.accessToken) {
+      router.replace('/signin');
+    }
+  }, []);
 
   useEffect(() => {
     handleLoadMenu();
