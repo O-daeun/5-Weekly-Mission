@@ -174,7 +174,7 @@ export default function SignUpPage() {
             <S.PasswordWrap>
               <S.Input
                 id='passwordConfirm'
-                type='password'
+                type={isVisiblePasswordConform ? 'text' : 'password'}
                 placeholder='비밀번호와 일치하는 값을 입력해 주세요.'
                 value={passwordConform}
                 onChange={handlePasswordConformChange}
