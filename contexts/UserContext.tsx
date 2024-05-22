@@ -7,11 +7,11 @@ import {
   useState,
 } from 'react';
 import { getUser } from '../apis/api';
-import { User } from '@/src/interfaces';
+import { UserInterface } from '@/src/interfaces';
 
 interface UserContextValue {
-  user: User | undefined;
-  setUser: Dispatch<SetStateAction<User | undefined>>;
+  user: UserInterface | undefined;
+  setUser: Dispatch<SetStateAction<UserInterface | undefined>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export function UserProvider({ children }: Props) {
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<UserInterface | undefined>(undefined);
 
   const handleLoadUser = async () => {
     const nextUser = await getUser();

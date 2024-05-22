@@ -6,8 +6,8 @@ import { getLinks, getFolders } from '@/apis/api';
 import LinkInput from '@/components/LinkInput/LinkInput';
 import Search from '@/components/Search/Search';
 import CardList from '@/components/CardList/CardList';
-import MenuButton from '@/components/MenuButton/MenuButton';
 import Modal from '@/components/Modal/Modal';
+import MenuLink from '@/components/MenuLink/MenuLink';
 import * as S from '@/styles/FolderPage.styled';
 import { Layout, SectionWrap } from '@/styles/CommonPage.styled';
 import AddIcon from '@/src/images/add_icon.svg';
@@ -18,6 +18,9 @@ import DeleteIcon from '@/src/images/delete_icon.png';
 import { FolderInterface } from '@/src/interfaces';
 
 export default function FolderPage() {
+  const router = useRouter();
+  const { currentFolderId } = router.query;
+
   const [folderNames, setFolderNames] = useState(['']);
   const [folders, setFolders] = useState([
     {
@@ -45,10 +48,7 @@ export default function FolderPage() {
   const [isVisibleDeleteFolderModal, setIsVisibleDeleteFolder] =
     useState(false);
 
-  const router = useRouter();
-  const { folderMenu } = router.query;
   const { user } = useContext(UserContext);
-  console.log('user', user);
 
   const CONTROLS = [
     {
@@ -74,29 +74,12 @@ export default function FolderPage() {
     },
   ];
 
-  const handleMenuButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
-    if ((e.target as HTMLButtonElement).value === '전체') {
-      setCurrentFolder({
-        id: 0,
-        name: '전체',
-      });
-      return;
-    }
-    setCurrentFolder(
-      folders
-        .filter(
-          (folder) => folder.name === (e.target as HTMLButtonElement).value
-        )
-        .splice(0, 1)[0]
-    );
-  };
-
   const handleLoadMenu = async () => {
     if (user) {
-      const data: FolderInterface[] = await getFolders(0, user.id);
-      setFolders(data);
-      const nextFolderNames = data?.map((item) => item.name);
-      const nextItemCounts = data?.map((item) => item.link.count);
+      const nextFolders: FolderInterface[] = await getFolders(0, user.id);
+      setFolders(nextFolders);
+      const nextFolderNames = folders?.map((item) => item.name);
+      const nextItemCounts = folders?.map((item) => item.link.count);
       setFolderNames(nextFolderNames);
       setItemCountsInEachFolder(nextItemCounts);
     }
@@ -104,7 +87,7 @@ export default function FolderPage() {
 
   const handleLoadItems = async () => {
     if (user) {
-      const nextLinks = await getLinks(user.id, currentFolder.id);
+      const nextLinks = await getLinks(user.id, Number(currentFolderId));
       setLinks(nextLinks);
     }
   };
@@ -140,17 +123,12 @@ export default function FolderPage() {
         <Search />
         <S.MenuWrap>
           <S.MenuList>
-            <MenuButton
-              currentFolder={currentFolder}
-              folderName='전체'
-              onClick={handleMenuButtonClick}
-            />
-            {folderNames?.map((folderName, index) => (
-              <MenuButton
+            <MenuLink currentFolderId={currentFolderId || '0'} />
+            {folders?.map((folder, index) => (
+              <MenuLink
                 key={index}
-                currentFolder={currentFolder}
-                folderName={folderName}
-                onClick={handleMenuButtonClick}
+                currentFolderId={currentFolderId || '0'}
+                folder={folder}
               />
             ))}
           </S.MenuList>

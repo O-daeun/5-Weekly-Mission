@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getFolderUser, getFolders, getLinks } from '@/apis/api';
-import { User } from '@/src/interfaces';
+import { UserInterface } from '@/src/interfaces';
 import Search from '@/components/Search/Search';
 import Profile from '@/components/Profile/Profile';
 import CardList from '@/components/CardList/CardList';
@@ -11,7 +11,7 @@ import { Layout, SectionWrap, TopWrap } from '@/styles/CommonPage.styled';
 export default function SharedPage() {
   const [links, setLinks] = useState([]);
   const [folderName, setFolderName] = useState();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserInterface>();
 
   interface ParamsType {
     folderId: number;
@@ -28,7 +28,7 @@ export default function SharedPage() {
         nextFolder.length === 1 ? nextFolder[0].name : '전체';
       setFolderName(nextFolderName);
 
-      const nextUser = await getFolderUser(nextFolder[0].user_id);
+      const nextUser = await getFolderUser(nextFolder[0]?.user_id);
       setUser(nextUser);
     }
   };
