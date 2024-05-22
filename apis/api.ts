@@ -17,6 +17,12 @@ export async function getUser() {
   return result;
 }
 
+export async function getFolderUser(id: number) {
+  const response = await axios.get(`${BASIC_URL}/users/${id}`);
+  const result = response.data.data[0];
+  return result;
+}
+
 export async function postValidateSignUp(id: string) {
   const response = await axios.post(`${BASIC_URL}/check-email`, {
     email: id,
@@ -41,10 +47,11 @@ export async function postSignIn(id: string, pw: string) {
   return result;
 }
 
-export async function getFolders(userId: number | null, folderId: number) {
-  const queryParam = folderId === 0 ? '' : `?folderId=${folderId}`;
+export async function getFolders(folderId: number, userId?: number | null) {
+  const queryParam = folderId === 0 ? '' : `/${folderId}`;
+  const userIdParam = userId ? `/users/${userId}` : '';
   const response = await axios.get(
-    `${BASIC_URL}/users/${userId}/folders${queryParam}`
+    `${BASIC_URL}${userIdParam}/folders${queryParam}`
   );
   const result = response.data.data;
   return result;

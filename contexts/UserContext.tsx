@@ -7,15 +7,7 @@ import {
   useState,
 } from 'react';
 import { getUser } from '../apis/api';
-
-interface User {
-  id: number;
-  created_at: string;
-  name: string;
-  image_source: string;
-  email: string;
-  auth_id: string;
-}
+import { User } from '@/src/interfaces';
 
 interface UserContextValue {
   user: User | undefined;

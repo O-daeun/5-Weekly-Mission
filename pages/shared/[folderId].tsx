@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../../components/Search/Search';
-import { getFolders, getLinks } from '../../apis/api';
+import { getFolderUser, getFolders, getLinks, getUser } from '../../apis/api';
 import { Layout, SectionWrap, TopWrap } from '../../styles/CommonPage.styled';
 import * as S from '../../styles/SharedPage.styled';
 import Profile from '../../components/Profile/Profile';
 import CardList from '../../components/CardList/CardList';
 import { useRouter } from 'next/router';
-import { UserContext } from '@/contexts/UserContext';
+import { User } from '@/src/interfaces';
 
 export default function SharedPage() {
-  const { user } = useContext(UserContext);
   const [links, setLinks] = useState([]);
   const [folderName, setFolderName] = useState();
+  const [user, setUser] = useState<User>();
 
   interface ParamsType {
     folderId: number;
@@ -21,19 +21,31 @@ export default function SharedPage() {
   const { folderId } = router.query as unknown as ParamsType;
 
   const handleLoad = async () => {
+    if (folderId) {
+      const nextFolder = await getFolders(Number(folderId));
+
+      const nextFolderName =
+        nextFolder.length === 1 ? nextFolder[0].name : '전체';
+      setFolderName(nextFolderName);
+
+      const nextUser = await getFolderUser(nextFolder[0].user_id);
+      setUser(nextUser);
+    }
+  };
+
+  const handleLinksLoad = async () => {
     if (user) {
       const nextLinks = await getLinks(user.id, Number(folderId));
-      const nextFolders = await getFolders(user.id, Number(folderId));
-      const nextFolderName =
-        nextFolders.length === 1 ? nextFolders[0].name : '전체';
-
       setLinks(nextLinks);
-      setFolderName(nextFolderName);
     }
   };
 
   useEffect(() => {
     handleLoad();
+  }, [folderId]);
+
+  useEffect(() => {
+    handleLinksLoad();
   }, [user]);
 
   return (

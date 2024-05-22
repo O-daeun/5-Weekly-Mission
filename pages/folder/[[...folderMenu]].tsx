@@ -1,23 +1,22 @@
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
-import { Layout, SectionWrap } from '../../styles/CommonPage.styled';
-import LinkInput from '../../components/LinkInput/LinkInput';
-import * as S from '../../styles/FolderPage.styled';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { UserContext } from '@/contexts/UserContext';
 import { getLinks, getFolders } from '../../apis/api';
+import { Layout, SectionWrap } from '../../styles/CommonPage.styled';
+import * as S from '../../styles/FolderPage.styled';
+import LinkInput from '../../components/LinkInput/LinkInput';
 import Search from '../../components/Search/Search';
 import CardList from '../../components/CardList/CardList';
 import MenuButton from '../../components/MenuButton/MenuButton';
+import Modal from '../../components/Modal/Modal';
 import AddIcon from '@/src/images/add_icon.svg';
 import AddWhiteIcon from '@/src/images/add_white_icon.svg';
 import ShareIcon from '@/src/images/share_icon.png';
 import PenIcon from '@/src/images/pen_icon.png';
 import DeleteIcon from '@/src/images/delete_icon.png';
-import Modal from '../../components/Modal/Modal';
-import Image from 'next/image';
-import { UserContext } from '@/contexts/UserContext';
-import { useRouter } from 'next/router';
 
 export default function FolderPage() {
-  const { user } = useContext(UserContext);
   const [folderNames, setFolderNames] = useState(['']);
   const [folders, setFolders] = useState([
     {
@@ -31,7 +30,6 @@ export default function FolderPage() {
       },
     },
   ]);
-
   const [currentFolder, setCurrentFolder] = useState({
     id: 0,
     name: '전체',
@@ -45,7 +43,13 @@ export default function FolderPage() {
     useState(false);
   const [isVisibleDeleteFolderModal, setIsVisibleDeleteFolder] =
     useState(false);
+
   const router = useRouter();
+  const { folderMenu } = router.query;
+  console.log(folderMenu);
+
+  const { user } = useContext(UserContext);
+  console.log(user);
 
   const CONTROLS = [
     {
@@ -101,7 +105,7 @@ export default function FolderPage() {
             count: 0;
           };
         }
-      ] = await getFolders(user.id, 0);
+      ] = await getFolders(0, user.id);
       setFolders(data);
       const nextFolderNames = data?.map((item) => item.name);
       const nextItemCounts = data?.map((item) => item.link.count);
@@ -121,11 +125,11 @@ export default function FolderPage() {
     setIsVisibleAddFolderModal(true);
   };
 
-  useEffect(() => {
-    if (!user) {
-      router.replace('/signin');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.replace('/signin');
+  //   }
+  // }, []);
 
   useEffect(() => {
     handleLoadMenu();
@@ -133,6 +137,7 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadItems();
+    // 동적 라우팅
   }, [user, currentFolder]);
 
   return (
