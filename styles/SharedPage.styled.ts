@@ -14,3 +14,12 @@ export const List = styled.ul`
   flex-wrap: wrap;
   gap: 20px;
 `;
+
+export const NoData = styled.p`
+  padding: 41px 0 35px;
+  text-align: center;
+
+  @media (max-width: 767px) {
+    padding: 42px 0 290px;
+  }
+`;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getFolderUser, getFolders, getLinks } from '@/apis/api';
-import { UserInterface } from '@/src/interfaces';
+import { LinkInterface, UserInterface } from '@/src/interfaces';
 import Search from '@/components/Search/Search';
 import Profile from '@/components/Profile/Profile';
 import CardList from '@/components/CardList/CardList';
@@ -9,16 +9,14 @@ import * as S from '@/styles/SharedPage.styled';
 import { Layout, SectionWrap, TopWrap } from '@/styles/CommonPage.styled';
 
 export default function SharedPage() {
-  const [links, setLinks] = useState([]);
+  const router = useRouter();
+  const { folderId } = router.query;
+
+  const [searchText, setSearchText] = useState('');
+  const [links, setLinks] = useState<LinkInterface[]>();
+  const [filteredLinks, setFilteredLinks] = useState<LinkInterface[]>();
   const [folderName, setFolderName] = useState();
   const [user, setUser] = useState<UserInterface>();
-
-  interface ParamsType {
-    folderId: number;
-  }
-
-  const router = useRouter();
-  const { folderId } = router.query as unknown as ParamsType;
 
   const handleLoad = async () => {
     if (folderId) {
@@ -40,6 +38,22 @@ export default function SharedPage() {
     }
   };
 
+  const handleFilterItems = () => {
+    if (links) {
+      const nextFilteredLinks = links.filter(
+        (link) =>
+          link.url?.includes(searchText) ||
+          link.title?.includes(searchText) ||
+          link.description?.includes(searchText)
+      );
+      setFilteredLinks(nextFilteredLinks);
+    }
+  };
+
+  useEffect(() => {
+    handleFilterItems();
+  }, [searchText]);
+
   useEffect(() => {
     handleLoad();
   }, [folderId]);
@@ -60,8 +74,12 @@ export default function SharedPage() {
         <S.Title>{folderName}</S.Title>
       </TopWrap>
       <SectionWrap>
-        <Search />
-        {links && <CardList items={links} />}
+        <Search text={searchText} setText={setSearchText} />
+        {(!links?.length ||
+          (links && searchText && filteredLinks?.length === 0)) && (
+          <S.NoData>저장된 링크가 없습니다</S.NoData>
+        )}
+        {links && <CardList items={searchText ? filteredLinks : links} />}
       </SectionWrap>
     </Layout>
   );

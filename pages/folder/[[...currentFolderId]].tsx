@@ -106,7 +106,6 @@ export default function FolderPage() {
       );
     }
   };
-  console.log(links);
 
   const handleAddFolderButtonClick = () => {
     setIsVisibleAddFolderModal(true);
@@ -140,7 +139,7 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleFilterItems();
-  }, [searchText, links]);
+  }, [searchText]);
 
   return (
     <Layout>
