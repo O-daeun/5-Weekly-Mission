@@ -6,15 +6,23 @@ import { UserContext } from '@/contexts/UserContext';
 import Link from 'next/link';
 import * as S from './Header.styled';
 import logoImg from '@/src/images/logo.svg';
+import { getUser } from '@/apis/api';
 
 export default function Header() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   const $isSticky = router.pathname.includes('/folder');
   const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
 
   const handleProfileClick = () => {
     setIsVisibleKebabModal((prev) => !prev);
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem('accessToken');
+    const nextUser = await getUser();
+    setUser(nextUser);
+    router.push('/');
   };
 
   return (
@@ -35,7 +43,9 @@ export default function Header() {
         {user ? (
           <S.ProfileButton onClick={handleProfileClick}>
             <Profile user={user.email} src={user.image_source} $size='s' />
-            {isVisibleKebabModal && <S.LogoutButton>로그아웃</S.LogoutButton>}
+            {isVisibleKebabModal && (
+              <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
+            )}
           </S.ProfileButton>
         ) : (
           <S.StyledButton link='/signin' text='로그인' />

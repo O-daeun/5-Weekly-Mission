@@ -45,6 +45,8 @@ export const StyledButton = styled(Button)`
 
 export const ProfileButton = styled.div`
   position: relative;
+  user-select: none;
+  cursor: pointer;
 `;
 
 export const LogoutButton = styled.button`
