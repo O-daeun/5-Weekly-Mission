@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Modal from '../Modal/Modal';
 import * as S from './LinkInput.styled';
 
@@ -14,12 +14,12 @@ export default function LinkInput({
   const [text, setText] = useState('');
   const [link, setLink] = useState('');
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLink(text);
     setIsVisibleModal(true);
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
   return (

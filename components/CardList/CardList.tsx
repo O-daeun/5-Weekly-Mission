@@ -1,14 +1,9 @@
+import { LinkInterface } from '@/src/interfaces';
 import Card from '../Card/Card';
 import * as S from './CardList.styled';
 
 interface Props {
-  items: {
-    id: number;
-    created_at: string;
-    url: string;
-    title: string;
-    image_source: string;
-  }[];
+  items: LinkInterface[] | undefined;
   folderNames?: string[];
   itemCountsInEachFolder?: number[];
 }

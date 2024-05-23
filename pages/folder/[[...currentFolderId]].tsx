@@ -15,7 +15,7 @@ import AddWhiteIcon from '@/src/images/add_white_icon.svg';
 import ShareIcon from '@/src/images/share_icon.png';
 import PenIcon from '@/src/images/pen_icon.png';
 import DeleteIcon from '@/src/images/delete_icon.png';
-import { FolderInterface } from '@/src/interfaces';
+import { FolderInterface, LinkInterface } from '@/src/interfaces';
 
 const All_FOLDER = {
   id: 0,
@@ -26,6 +26,7 @@ export default function FolderPage() {
   const router = useRouter();
   const { currentFolderId } = router.query;
 
+  const [searchText, setSearchText] = useState('');
   const [folderNames, setFolderNames] = useState(['']);
   const [folders, setFolders] = useState([
     {
@@ -40,7 +41,8 @@ export default function FolderPage() {
     },
   ]);
   const [currentFolder, setCurrentFolder] = useState(All_FOLDER);
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<LinkInterface[]>();
+  const [filteredLinks, setFilteredLinks] = useState<LinkInterface[]>();
   const [itemCountsInEachFolder, setItemCountsInEachFolder] = useState([0]);
   const [isVisibleAddFolderModal, setIsVisibleAddFolderModal] = useState(false);
   const [isVisibleShareFolderModal, setIsVisibleShareFolderModal] =
@@ -104,9 +106,22 @@ export default function FolderPage() {
       );
     }
   };
+  console.log(links);
 
   const handleAddFolderButtonClick = () => {
     setIsVisibleAddFolderModal(true);
+  };
+
+  const handleFilterItems = () => {
+    if (links) {
+      const nextFilteredLinks = links.filter(
+        (link) =>
+          link.url?.includes(searchText) ||
+          link.title?.includes(searchText) ||
+          link.description?.includes(searchText)
+      );
+      setFilteredLinks(nextFilteredLinks);
+    }
   };
 
   useEffect(() => {
@@ -123,6 +138,10 @@ export default function FolderPage() {
     handleLoadItems();
   }, [user, currentFolderId]);
 
+  useEffect(() => {
+    handleFilterItems();
+  }, [searchText, links]);
+
   return (
     <Layout>
       <S.StyledTopWrap>
@@ -132,7 +151,7 @@ export default function FolderPage() {
         />
       </S.StyledTopWrap>
       <SectionWrap>
-        <Search />
+        <Search text={searchText} setText={setSearchText} />
         <S.MenuWrap>
           <S.MenuList>
             <MenuLink currentFolderId={currentFolderId || '0'} />
@@ -168,10 +187,13 @@ export default function FolderPage() {
             </S.ControlWrap>
           )}
         </S.TitleWrap>
-        {!links?.length && <S.NoData>저장된 링크가 없습니다</S.NoData>}
+        {(!links?.length ||
+          (links && searchText && filteredLinks?.length === 0)) && (
+          <S.NoData>저장된 링크가 없습니다</S.NoData>
+        )}
         {links && (
           <CardList
-            items={links}
+            items={searchText ? filteredLinks : links}
             folderNames={folderNames}
             itemCountsInEachFolder={itemCountsInEachFolder}
           />

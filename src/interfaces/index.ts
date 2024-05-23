@@ -17,3 +17,14 @@ export interface FolderInterface {
     count: number;
   };
 }
+
+export interface LinkInterface {
+  id: number;
+  created_at: string;
+  updated_at: string | null;
+  url: string;
+  title: string;
+  description: string;
+  image_source: string;
+  folder_id: number;
+}
