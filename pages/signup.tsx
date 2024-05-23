@@ -1,7 +1,8 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import { UserContext } from '@/contexts/UserContext';
 import {
   validateEmail,
   validateSignUpPassword,
@@ -28,6 +29,7 @@ export default function SignUpPage() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [isVisiblePasswordConform, setIsVisiblePasswordConform] =
     useState(false);
+  const { user } = useContext(UserContext);
   const router = useRouter();
   const {
     pending: validateSignUpPending,
@@ -117,6 +119,14 @@ export default function SignUpPage() {
   const handlePasswordConformEyeButtonClick = () => {
     setIsVisiblePasswordConform((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    } else {
+      return;
+    }
+  }, [user]);
 
   return (
     <S.Layout>

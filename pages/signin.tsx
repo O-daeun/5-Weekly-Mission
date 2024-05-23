@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -22,8 +22,9 @@ export default function SignInPage() {
     passwordConform: { error: false, message: '' },
   });
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
   const router = useRouter();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const {
     pending: signInPending,
     error: signInError,
@@ -84,6 +85,14 @@ export default function SignInPage() {
   const handlePasswordEyeButtonClick = () => {
     setIsVisiblePassword((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    } else {
+      return;
+    }
+  }, [user]);
 
   return (
     <S.Layout>
