@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Profile from '../Profile/Profile';
@@ -10,7 +10,12 @@ import logoImg from '@/src/images/logo.svg';
 export default function Header() {
   const { user } = useContext(UserContext);
   const router = useRouter();
-  const $isSticky = router.pathname !== '/folder';
+  const $isSticky = router.pathname.includes('/folder');
+  const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
+
+  const handleProfileClick = () => {
+    setIsVisibleKebabModal((prev) => !prev);
+  };
 
   return (
     <S.Header $isSticky={$isSticky}>
@@ -28,7 +33,10 @@ export default function Header() {
           </Link>
         </S.Logo>
         {user ? (
-          <Profile user={user.email} src={user.image_source} $size='s' />
+          <S.ProfileButton onClick={handleProfileClick}>
+            <Profile user={user.email} src={user.image_source} $size='s' />
+            {isVisibleKebabModal && <S.LogoutButton>로그아웃</S.LogoutButton>}
+          </S.ProfileButton>
         ) : (
           <S.StyledButton link='/signin' text='로그인' />
         )}

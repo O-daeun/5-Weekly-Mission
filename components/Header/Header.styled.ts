@@ -42,3 +42,23 @@ export const StyledButton = styled(Button)`
     width: 80px;
   }
 `;
+
+export const ProfileButton = styled.div`
+  position: relative;
+`;
+
+export const LogoutButton = styled.button`
+  position: absolute;
+  top: 30px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  background: var(--Linkbrary-white);
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
+
+  &:hover {
+    color: var(--Linkbrary-primary);
+  }
+`;
