@@ -11,11 +11,11 @@ import {
 import useAsync from '@/hooks/useAsync';
 import { postSignUp, postValidateSignUp } from '@/apis/api';
 import * as S from '@/styles/Auth.styled';
-import LogoIcon from '@/src/images/logo.svg';
-import GoggleIcon from '@/src/images/login_google.svg';
-import KakaotalkIcon from '@/src/images/login_kakaotalk.svg';
-import EyeOnIcon from '@/src/images/eye_on.svg';
-import EyeOffIcon from '@/src/images/eye_off.svg';
+import LogoIcon from '@/public/images/logo.svg';
+import GoggleIcon from '@/public/images/login_google.svg';
+import KakaotalkIcon from '@/public/images/login_kakaotalk.svg';
+import EyeOnIcon from '@/public/images/eye_on.svg';
+import EyeOffIcon from '@/public/images/eye_off.svg';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');

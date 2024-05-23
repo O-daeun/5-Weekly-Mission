@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import * as S from './Profile.styled';
-import profileInit from '@/src/images/profile_init.png';
+import profileInit from '@/public/images/profile_init.png';
 
 interface Props {
   user: string | undefined;

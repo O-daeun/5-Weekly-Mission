@@ -5,6 +5,7 @@ const StyledButton = css`
   display: flex;
   justify-content: center;
   align-items: center;
+
   padding: 16px 5px;
   background: linear-gradient(
     90.99deg,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getFolderUser, getFolders, getLinks } from '@/apis/api';
-import { LinkInterface, UserInterface } from '@/src/interfaces';
+import { LinkInterface, UserInterface } from '@/interfaces';
 import Search from '@/components/Search/Search';
 import Profile from '@/components/Profile/Profile';
 import CardList from '@/components/CardList/CardList';

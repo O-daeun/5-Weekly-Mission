@@ -5,7 +5,7 @@ import Profile from '../Profile/Profile';
 import { UserContext } from '@/contexts/UserContext';
 import Link from 'next/link';
 import * as S from './Header.styled';
-import logoImg from '@/src/images/logo.svg';
+import logoImg from '@/public/images/logo.svg';
 import { getUser } from '@/apis/api';
 
 export default function Header() {

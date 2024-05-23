@@ -27,3 +27,23 @@ export const SectionWrap = styled.section`
 export const Layout = styled.div`
   min-height: calc(100vh - 233px);
 `;
+
+export const BrInPC = styled.br`
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+export const BrInTablet = styled.br`
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
+`;
+
+export const BrInMobile = styled.br`
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
+`;

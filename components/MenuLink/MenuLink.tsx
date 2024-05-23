@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FolderInterface } from '@/src/interfaces';
+import { FolderInterface } from '@/interfaces';
 import * as S from './MenuLink.styled';
 
 interface Props {

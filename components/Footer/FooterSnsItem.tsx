@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import facebookImg from '@/src/images/sns_facebook.png';
-import twitterImg from '@/src/images/sns_twitter.png';
-import youtubeImg from '@/src/images/sns_youtube.png';
-import instagramImg from '@/src/images/sns_instagram.png';
+import facebookImg from '@/public/images/sns_facebook.png';
+import twitterImg from '@/public/images/sns_twitter.png';
+import youtubeImg from '@/public/images/sns_youtube.png';
+import instagramImg from '@/public/images/sns_instagram.png';
 
 const imgList = [facebookImg, twitterImg, youtubeImg, instagramImg];
 

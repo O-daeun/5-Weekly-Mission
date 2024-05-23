@@ -1,4 +1,4 @@
-import { LinkInterface } from '@/src/interfaces';
+import { LinkInterface } from '@/interfaces';
 import Card from '../Card/Card';
 import * as S from './CardList.styled';
 

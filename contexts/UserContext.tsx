@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { getUser } from '../apis/api';
-import { UserInterface } from '@/src/interfaces';
+import { UserInterface } from '@/interfaces';
 
 interface UserContextValue {
   user: UserInterface | undefined;

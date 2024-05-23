@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../Button/Button';
-import checkIcon from '@/src/images/check_icon.svg';
+import checkIcon from '@/public/images/check_icon.svg';
 
 export const Layout = styled.div`
   position: fixed;

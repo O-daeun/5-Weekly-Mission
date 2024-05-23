@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { formatDateToString, formatDateToAgo } from '@/utils/date';
 import Modal from '../Modal/Modal';
 import * as S from './Card.styled';
-import star from '@/src/images/star_icon.png';
-import kebab from '@/src/images/kebab_icon.png';
-import defaultImage from '@/src/images/no-image.png';
+import star from '@/public/images/star_icon.png';
+import kebab from '@/public/images/kebab_icon.png';
+import defaultImage from '@/public/images/no-image.png';
 
 interface Props {
   item: {

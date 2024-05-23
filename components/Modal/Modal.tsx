@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import * as S from './Modal.styled';
-import CloseImage from '@/src/images/close_button.svg';
-import KakaotalkIcon from '@/src/images/share_kakaotalk.svg';
-import facebookIcon from '@/src/images/share_facebook.svg';
-import linkIcon from '@/src/images/share_link.svg';
+import CloseImage from '@/public/images/close_button.svg';
+import KakaotalkIcon from '@/public/images/share_kakaotalk.svg';
+import facebookIcon from '@/public/images/share_facebook.svg';
+import linkIcon from '@/public/images/share_link.svg';
 import shareKakao from '../../apis/shareKakao';
 
 /**

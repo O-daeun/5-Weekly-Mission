@@ -10,12 +10,12 @@ import Modal from '@/components/Modal/Modal';
 import MenuLink from '@/components/MenuLink/MenuLink';
 import * as S from '@/styles/FolderPage.styled';
 import { Layout, SectionWrap } from '@/styles/CommonPage.styled';
-import AddIcon from '@/src/images/add_icon.svg';
-import AddWhiteIcon from '@/src/images/add_white_icon.svg';
-import ShareIcon from '@/src/images/share_icon.png';
-import PenIcon from '@/src/images/pen_icon.png';
-import DeleteIcon from '@/src/images/delete_icon.png';
-import { FolderInterface, LinkInterface } from '@/src/interfaces';
+import AddIcon from '@/public/images/add_icon.svg';
+import AddWhiteIcon from '@/public/images/add_white_icon.svg';
+import ShareIcon from '@/public/images/share_icon.png';
+import PenIcon from '@/public/images/pen_icon.png';
+import DeleteIcon from '@/public/images/delete_icon.png';
+import { FolderInterface, LinkInterface } from '@/interfaces';
 
 const All_FOLDER = {
   id: 0,
