@@ -17,5 +17,6 @@ export const MenuLink = styled(Link)<{ $isActive: boolean }>`
     height: 29px;
     padding: 0 10px;
     font-size: 14px;
+    line-height: 29px;
   }
 `;

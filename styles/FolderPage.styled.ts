@@ -113,6 +113,6 @@ export const NoData = styled.p`
   text-align: center;
 
   @media (max-width: 767px) {
-    padding: 42px 0 290px;
+    padding: 42px 0 80px;
   }
 `;

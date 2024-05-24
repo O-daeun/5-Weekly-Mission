@@ -28,9 +28,9 @@ export default function Header() {
   return (
     <S.Header $isSticky={$isSticky}>
       <S.Inner>
-        <S.Logo>
+        <h1>
           <Link href='/'>
-            <Image
+            <S.LogoImage
               src={logoImg}
               alt='linkbrary logo'
               width='133'
@@ -39,7 +39,7 @@ export default function Header() {
               priority={true}
             />
           </Link>
-        </S.Logo>
+        </h1>
         {user ? (
           <S.ProfileButton onClick={handleProfileClick}>
             <Profile user={user.email} src={user.image_source} $size='s' />

@@ -67,6 +67,7 @@ export default function HomePage() {
             <S.ArticleTextWrap>
               <S.ArticleTitle>
                 링크를 폴더로&nbsp;
+                <BrInPC />
                 <S.ArticleGradient $color={GRADIENT_COLORS.article2}>
                   관리
                 </S.ArticleGradient>
@@ -82,6 +83,7 @@ export default function HomePage() {
             <S.ArticleTextWrap>
               <S.ArticleTitle>
                 저장한 링크를&nbsp;
+                <BrInPC />
                 <S.ArticleGradient $color={GRADIENT_COLORS.article3}>
                   공유
                 </S.ArticleGradient>
@@ -110,6 +112,7 @@ export default function HomePage() {
             <S.ArticleTextWrap>
               <S.ArticleTitle>
                 저장한 링크를&nbsp;
+                <BrInPC />
                 <S.ArticleGradient $color={GRADIENT_COLORS.article1}>
                   검색
                 </S.ArticleGradient>

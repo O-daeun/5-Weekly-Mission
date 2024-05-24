@@ -25,7 +25,7 @@ export const SectionWrap = styled.section`
 `;
 
 export const Layout = styled.div`
-  min-height: calc(100vh - 233px);
+  min-height: calc(100vh - 230px);
 `;
 
 export const BrInPC = styled.br`

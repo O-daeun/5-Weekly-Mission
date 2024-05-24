@@ -18,10 +18,15 @@ export const Layout = styled.div`
 export const Modal = styled.div`
   position: relative;
   width: 360px;
+  max-width: calc(100vw - 64px);
   padding: 32px 40px;
   border-radius: 15px;
   border: 1px solid var(--Linkbrary-gray20);
   background: var(--Linkbrary-white);
+
+  @media (max-width: 767px) {
+    padding: 30px;
+  }
 `;
 
 export const CloseButton = styled.button`
