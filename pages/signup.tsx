@@ -9,7 +9,7 @@ import {
   validatePasswordConform,
 } from '@/utils/validate';
 import useAsync from '@/hooks/useAsync';
-import { postSignUp, postValidateSignUp } from '@/apis/api';
+import { postSignUp, postCheckDuplicateEmail } from '@/apis/api';
 import * as S from '@/styles/Auth.styled';
 import LogoIcon from '@/public/images/logo.svg';
 import GoggleIcon from '@/public/images/login_google.svg';
@@ -31,16 +31,10 @@ export default function SignUpPage() {
     useState(false);
   const { user } = useContext(UserContext);
   const router = useRouter();
-  const {
-    pending: validateSignUpPending,
-    error: validateSignUpError,
-    requestFunction: validateSignUpRequest,
-  } = useAsync(postValidateSignUp);
-  const {
-    pending: signUpPending,
-    error: signUpError,
-    requestFunction: signUpRequest,
-  } = useAsync(postSignUp);
+  const { error: validateSignUpError, requestFunction: validateSignUpRequest } =
+    useAsync(postCheckDuplicateEmail);
+  const { error: signUpError, requestFunction: signUpRequest } =
+    useAsync(postSignUp);
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);

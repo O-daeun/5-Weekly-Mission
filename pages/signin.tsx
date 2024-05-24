@@ -48,8 +48,9 @@ export default function SignInPage() {
         showError.email.message !== '이메일을 확인해 주세요.') ||
       (showError.password.error &&
         showError.password.message !== '비밀번호를 확인해 주세요.')
-    )
+    ) {
       return;
+    }
     const result = await signInRequest(email, password);
     if (signInError) {
       setShowError((prev) => ({

@@ -23,7 +23,7 @@ export async function getFolderUser(id: number) {
   return result;
 }
 
-export async function postValidateSignUp(id: string) {
+export async function postCheckDuplicateEmail(id: string) {
   const response = await axios.post(`${BASIC_URL}/check-email`, {
     email: id,
   });
