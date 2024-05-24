@@ -151,7 +151,7 @@ export default function SignInPage() {
           <S.SnsTitle>소셜 로그인</S.SnsTitle>
           <S.SnsList>
             <li>
-              <Link href='https://www.google.com/'>
+              <Link href='https://www.google.com/' target='_blank'>
                 <Image
                   src={GoggleIcon}
                   alt='구글 로그인'
@@ -161,7 +161,7 @@ export default function SignInPage() {
               </Link>
             </li>
             <li>
-              <Link href='https://www.kakaocorp.com/page/'>
+              <Link href='https://www.kakaocorp.com/page/' target='_blank'>
                 <Image
                   src={KakaotalkIcon}
                   alt='카카오톡 로그인'
