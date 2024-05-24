@@ -127,7 +127,6 @@ export default function FolderPage() {
     if (!localStorage.accessToken) {
       router.replace('/signin');
     }
-    console.log(window.location);
   }, []);
 
   useEffect(() => {

@@ -6,7 +6,7 @@ export default function shareKakao(
   folderId: number
 ) {
   const url = window.location.hostname;
-  const folderUrl = `${url}/${folderId}`;
+  const folderUrl = `${url}/share/${folderId}`;
 
   const { Kakao } = window;
 
