@@ -86,9 +86,9 @@ export default function Modal({
       imageSrc: linkIcon,
       onClick: () => {
         navigator.clipboard
-          .writeText(`${window.location.origin}/shared/${folderId}`)
+          .writeText(`${window.location.hostname}/shared/${folderId}`)
           .then(() => {
-            alert('텍스트가 복사되었습니다.');
+            alert('링크가 복사되었습니다.');
           })
           .catch((error) => {
             console.error('복사 실패:', error);
