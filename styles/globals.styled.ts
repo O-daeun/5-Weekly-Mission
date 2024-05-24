@@ -2,6 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -46,22 +52,6 @@ const GlobalStyle = createGlobalStyle`
     --Linkbrary-gray20: #ccd5e3;
     --Linkbrary-gray10: #e7effb;
   }
-
-  @font-face {
-    font-family: 'Abel';
-    src: url('../fonts/Abel-Regular.ttf') format('font-woff2');
-  }
-
-  @font-face {
-    font-family: 'Acme';
-    src: url('../fonts/Acme-Regular.ttf') format('font-woff2');
-  }
-
-  @font-face {
-    font-family: 'Pretendard';
-    src: url('../fonts/PretendardVariable.ttf') format('font-woff2');
-  }
-
 
   #root {
     position: relative;
