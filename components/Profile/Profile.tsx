@@ -21,8 +21,8 @@ export default function Profile({
         <Image
           src={src ? src : profileInit}
           alt='프로필 이미지'
-          fill
-          sizes='60px'
+          width={60}
+          height={60}
         />
       </S.ImgBox>
       <S.Text $flextype={$flextype}>{user}</S.Text>
