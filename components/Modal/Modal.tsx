@@ -84,7 +84,16 @@ export default function Modal({
     {
       name: '링크 복사',
       imageSrc: linkIcon,
-      onClick: () => {},
+      onClick: () => {
+        navigator.clipboard
+          .writeText(`${window.location.origin}/shared/${folderId}`)
+          .then(() => {
+            alert('텍스트가 복사되었습니다.');
+          })
+          .catch((error) => {
+            console.error('복사 실패:', error);
+          });
+      },
     },
   ];
 

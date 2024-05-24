@@ -88,7 +88,7 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.push('/folder');
     } else {
       return;
     }
