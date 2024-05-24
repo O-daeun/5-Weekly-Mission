@@ -143,7 +143,7 @@ export const FoldersList = styled.ul`
       right: 8px;
       width: 14px;
       height: 14px;
-      background: url(${checkIcon}) no-repeat center / contain;
+      background: url(${checkIcon.src}) no-repeat center / contain;
     }
     & label {
       position: relative;
@@ -156,6 +156,7 @@ export const FoldersList = styled.ul`
 
       & h3 {
         font-weight: 400;
+        font-size: 16px;
         line-height: 150%;
         color: var(--Linkbrary-gray100);
       }

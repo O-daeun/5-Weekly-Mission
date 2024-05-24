@@ -82,8 +82,8 @@ export default function FolderPage() {
     if (user) {
       const nextFolders: FolderInterface[] = await getFolders(0, user.id);
       setFolders(nextFolders);
-      const nextFolderNames = folders?.map((item) => item.name);
-      const nextItemCounts = folders?.map((item) => item.link.count);
+      const nextFolderNames = nextFolders.map((item) => item.name);
+      const nextItemCounts = nextFolders.map((item) => item.link.count);
       setFolderNames(nextFolderNames);
       setItemCountsInEachFolder(nextItemCounts);
     }
