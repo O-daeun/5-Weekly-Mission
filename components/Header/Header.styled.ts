@@ -22,7 +22,7 @@ export const Inner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1060px;
+  max-width: 1520px;
   margin: 0 auto;
 
   @media (max-width: 1199px) {
