@@ -27,7 +27,7 @@ export default function FolderPage() {
   const { currentFolderId } = router.query;
 
   const [searchText, setSearchText] = useState('');
-  const [folderNames, setFolderNames] = useState(['']);
+  const [folderNames, setFolderNames] = useState(['']); //
   const [folders, setFolders] = useState([
     {
       id: 0,
@@ -104,6 +104,7 @@ export default function FolderPage() {
       setCurrentFolder(
         nextCurrentFolder.length === 1 ? nextCurrentFolder[0] : All_FOLDER
       );
+      handleFilterItems(nextLinks);
     }
   };
 
@@ -111,13 +112,13 @@ export default function FolderPage() {
     setIsVisibleAddFolderModal(true);
   };
 
-  const handleFilterItems = () => {
-    if (links) {
-      const nextFilteredLinks = links.filter(
-        (link) =>
-          link.url?.includes(searchText) ||
-          link.title?.includes(searchText) ||
-          link.description?.includes(searchText)
+  const handleFilterItems = (prevLinks: LinkInterface[]) => {
+    if (prevLinks) {
+      const nextFilteredLinks = prevLinks.filter(
+        (prevLink) =>
+          prevLink.url?.includes(searchText) ||
+          prevLink.title?.includes(searchText) ||
+          prevLink.description?.includes(searchText)
       );
       setFilteredLinks(nextFilteredLinks);
     }
@@ -138,7 +139,9 @@ export default function FolderPage() {
   }, [user, currentFolderId]);
 
   useEffect(() => {
-    handleFilterItems();
+    if (links) {
+      handleFilterItems(links);
+    }
   }, [searchText]);
 
   return (
