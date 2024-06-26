@@ -58,13 +58,14 @@ export async function getFolders(folderId: number) {
   return result;
 }
 
-export async function getLinks(userId: number | null, folderId: number) {
-  const queryParam = folderId === 0 ? '' : `?folderId=${folderId}`;
-  const response = await axios.get(
-    `${BASIC_URL}/users/${userId}/links${queryParam}`
-  );
+export async function getLinks(folderId: number) {
+  const queryParam = folderId === 0 ? '/links' : `/folders/${folderId}/links`;
+  const response = await axios.get(`${BASIC_URL}${queryParam}`, {
+    headers: {
+      Authorization: localStorage.accessToken,
+    },
+  });
   const data = response.data;
-
   return data;
 }
 
@@ -80,5 +81,4 @@ export async function addFolder(newFolderName: string) {
       },
     }
   );
-  console.log(response);
 }

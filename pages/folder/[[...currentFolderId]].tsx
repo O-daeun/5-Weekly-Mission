@@ -90,10 +90,7 @@ export default function FolderPage() {
   const handleLoadItems = async () => {
     if (user) {
       let nextLinks;
-      nextLinks = await getLinks(
-        user.id,
-        currentFolderId ? Number(currentFolderId) : 0
-      );
+      nextLinks = await getLinks(currentFolderId ? Number(currentFolderId) : 0);
       setLinks(nextLinks);
       const nextCurrentFolder = await getFolders(
         currentFolderId ? Number(currentFolderId) : 0
