@@ -13,7 +13,7 @@ export async function getUser() {
   } else {
     return;
   }
-  const result = response.data.data[0];
+  const result = response.data[0];
   return result;
 }
 
@@ -31,7 +31,7 @@ export async function postCheckDuplicateEmail(id: string) {
 }
 
 export async function postSignUp(id: string, pw: string) {
-  const response = await axios.post(`${BASIC_URL}/sign-up`, {
+  const response = await axios.post(`${BASIC_URL}/auth/sign-up`, {
     email: id,
     password: pw,
   });
@@ -39,22 +39,22 @@ export async function postSignUp(id: string, pw: string) {
 }
 
 export async function postSignIn(id: string, pw: string) {
-  const response = await axios.post(`${BASIC_URL}/sign-in`, {
+  const response = await axios.post(`${BASIC_URL}/auth/sign-in`, {
     email: id,
     password: pw,
   });
-  const result = response.data.data;
+  const result = response.data;
   return result;
 }
 
-export async function getFolders(folderId: number, userId?: number | null) {
+export async function getFolders(folderId: number) {
   const queryParam = folderId === 0 ? '' : `/${folderId}`;
-  const userIdParam = userId ? `/users/${userId}` : '';
-  const response = await axios.get(
-    `${BASIC_URL}${userIdParam}/folders${queryParam}`
-  );
-
-  const result = response.data.data;
+  const response = await axios.get(`${BASIC_URL}/folders${queryParam}`, {
+    headers: {
+      Authorization: localStorage.accessToken,
+    },
+  });
+  const result = response.data;
   return result;
 }
 
@@ -63,13 +63,22 @@ export async function getLinks(userId: number | null, folderId: number) {
   const response = await axios.get(
     `${BASIC_URL}/users/${userId}/links${queryParam}`
   );
-  const data = response.data.data;
+  const data = response.data;
+
   return data;
 }
 
 export async function addFolder(newFolderName: string) {
-  const response = await axios.post(`${BASIC_URL}/folders`, {
-    name: newFolderName,
-  });
+  const response = await axios.post(
+    `${BASIC_URL}/folders`,
+    {
+      name: newFolderName,
+    },
+    {
+      headers: {
+        Authorization: localStorage.accessToken,
+      },
+    }
+  );
   console.log(response);
 }

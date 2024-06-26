@@ -33,11 +33,8 @@ export default function FolderPage() {
       id: 0,
       created_at: '',
       name: '',
-      userId: 0,
       favorite: false,
-      link: {
-        count: 0,
-      },
+      link_count: 0,
     },
   ]);
   const [currentFolder, setCurrentFolder] = useState(All_FOLDER);
@@ -80,10 +77,11 @@ export default function FolderPage() {
 
   const handleLoadMenu = async () => {
     if (user) {
-      const nextFolders: FolderInterface[] = await getFolders(0, user.id);
+      const nextFolders: FolderInterface[] = await getFolders(0);
       setFolders(nextFolders);
+
       const nextFolderNames = nextFolders.map((item) => item.name);
-      const nextItemCounts = nextFolders.map((item) => item.link.count);
+      const nextItemCounts = nextFolders.map((item) => item.link_count);
       setFolderNames(nextFolderNames);
       setItemCountsInEachFolder(nextItemCounts);
     }
@@ -98,8 +96,7 @@ export default function FolderPage() {
       );
       setLinks(nextLinks);
       const nextCurrentFolder = await getFolders(
-        currentFolderId ? Number(currentFolderId) : 0,
-        user.id
+        currentFolderId ? Number(currentFolderId) : 0
       );
       setCurrentFolder(
         nextCurrentFolder.length === 1 ? nextCurrentFolder[0] : All_FOLDER

@@ -4,13 +4,17 @@ import * as S from '../Modal.styled';
 import { useMutation } from '@tanstack/react-query';
 import { addFolder } from '@/apis/api';
 
-interface Props {
+interface AddFolderModalProps {
   title: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   buttonText: string;
 }
 
-export default function AddFolderModal({ title, onClose, buttonText }: Props) {
+export default function AddFolderModal({
+  title,
+  onClose,
+  buttonText,
+}: AddFolderModalProps) {
   const [text, setText] = useState('');
   const addFolderMutation = useMutation({
     mutationFn: (newFolderName: string) => addFolder(newFolderName),
@@ -27,6 +31,7 @@ export default function AddFolderModal({ title, onClose, buttonText }: Props) {
         console.log('성공');
       },
     });
+    onClose(false);
   };
 
   return (

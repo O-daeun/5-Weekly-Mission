@@ -10,12 +10,9 @@ export interface UserInterface {
 export interface FolderInterface {
   id: number;
   created_at: string;
-  name: string;
-  userId: number;
   favorite: boolean;
-  link: {
-    count: number;
-  };
+  name: string;
+  link_count: number;
 }
 
 export interface LinkInterface {
