@@ -122,20 +122,24 @@ export default function FolderPage() {
     if (!localStorage.accessToken) {
       router.replace('/signin');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     handleLoadMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
     handleLoadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, currentFolderId]);
 
   useEffect(() => {
     if (links) {
       handleFilterItems(links);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   return (
