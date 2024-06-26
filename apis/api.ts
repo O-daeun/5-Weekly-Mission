@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASIC_URL = 'https://bootcamp-api.codeit.kr/api';
+const BASIC_URL = 'https://bootcamp-api.codeit.kr/api/linkbrary/v1';
 
 export async function getUser() {
   let response;
@@ -65,4 +65,11 @@ export async function getLinks(userId: number | null, folderId: number) {
   );
   const data = response.data.data;
   return data;
+}
+
+export async function addFolder(newFolderName: string) {
+  const response = await axios.post(`${BASIC_URL}/folders`, {
+    name: newFolderName,
+  });
+  console.log(response);
 }

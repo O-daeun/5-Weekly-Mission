@@ -6,7 +6,6 @@ import { getLinks, getFolders } from '@/apis/api';
 import LinkInput from '@/components/LinkInput/LinkInput';
 import Search from '@/components/Search/Search';
 import CardList from '@/components/CardList/CardList';
-import Modal from '@/components/Modal/Modal';
 import MenuLink from '@/components/MenuLink/MenuLink';
 import * as S from '@/styles/FolderPage.styled';
 import { Layout, SectionWrap } from '@/styles/CommonPage.styled';
@@ -16,6 +15,7 @@ import ShareIcon from '@/public/images/share_icon.png';
 import PenIcon from '@/public/images/pen_icon.png';
 import DeleteIcon from '@/public/images/delete_icon.png';
 import { FolderInterface, LinkInterface } from '@/interfaces';
+import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
 
 const All_FOLDER = {
   id: 0,
@@ -202,14 +202,13 @@ export default function FolderPage() {
         )}
       </SectionWrap>
       {isVisibleAddFolderModal && (
-        <Modal
+        <AddFolderModal
           title='폴더 추가'
-          input
-          button='추가하기'
+          buttonText='추가하기'
           onClose={setIsVisibleAddFolderModal}
         />
       )}
-      {isVisibleShareFolderModal && (
+      {/* {isVisibleShareFolderModal && (
         <Modal
           title='폴더 공유'
           semiTitle={currentFolder.name}
@@ -233,7 +232,7 @@ export default function FolderPage() {
           button='삭제하기'
           onClose={setIsVisibleDeleteFolder}
         />
-      )}
+      )} */}
     </Layout>
   );
 }
