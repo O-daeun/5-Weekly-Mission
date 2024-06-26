@@ -53,6 +53,7 @@ export async function getFolders(folderId: number, userId?: number | null) {
   const response = await axios.get(
     `${BASIC_URL}${userIdParam}/folders${queryParam}`
   );
+
   const result = response.data.data;
   return result;
 }

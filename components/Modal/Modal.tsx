@@ -45,6 +45,7 @@ interface Props {
   folders?: string[];
   counts?: number[];
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
+  buttonOnClick?: () => void;
 }
 
 export default function Modal({
@@ -57,6 +58,7 @@ export default function Modal({
   folders,
   counts,
   onClose,
+  buttonOnClick,
 }: Props) {
   const [text, setText] = useState(inputValue);
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,7 +133,13 @@ export default function Modal({
             ))}
           </S.FoldersList>
         )}
-        {button && <S.StyledButton text={button} mt={semiTitle} />}
+        {button && (
+          <S.StyledButton
+            text={button}
+            mt={semiTitle}
+            onClick={buttonOnClick}
+          />
+        )}
         {folderId && (
           <S.ShareList>
             {SHARES.map((share, index) => (
