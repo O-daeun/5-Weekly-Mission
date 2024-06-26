@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/ModalLayout';
 import * as S from './LinkInput.styled';
 
 interface Props {

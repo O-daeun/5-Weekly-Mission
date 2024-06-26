@@ -2,7 +2,7 @@ import { ReactEventHandler, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { formatDateToString, formatDateToAgo } from '@/utils/date';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/ModalLayout';
 import * as S from './Card.styled';
 import star from '@/public/images/star_icon.png';
 import kebab from '@/public/images/kebab_icon.png';

@@ -124,10 +124,6 @@ export default function FolderPage() {
     }
   };
 
-  const handleFolderAdd = () => {
-    console.log('folder add');
-  };
-
   useEffect(() => {
     if (!localStorage.accessToken) {
       router.replace('/signin');
@@ -211,7 +207,6 @@ export default function FolderPage() {
           input
           button='추가하기'
           onClose={setIsVisibleAddFolderModal}
-          buttonOnClick={handleFolderAdd}
         />
       )}
       {isVisibleShareFolderModal && (
