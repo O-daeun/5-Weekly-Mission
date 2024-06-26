@@ -19,7 +19,7 @@ export async function getUser() {
 
 export async function getFolderUser(id: number) {
   const response = await axios.get(`${BASIC_URL}/users/${id}`);
-  const result = response.data.data[0];
+  const result = response.data[0];
   return result;
 }
 
