@@ -6,14 +6,16 @@ import { addFolder } from '@/apis/api';
 
 interface AddToFolderModalProps {
   title: string;
+  semiTitle: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   folders: string[];
   counts: number[];
   buttonText: string;
 }
 
-export default function AddFolderModal({
+export default function AddToFolderModal({
   title,
+  semiTitle,
   onClose,
   folders,
   counts,
@@ -40,6 +42,7 @@ export default function AddFolderModal({
 
   return (
     <ModalLayout title={title} onClose={onClose}>
+      <S.SemiTitle>{semiTitle}</S.SemiTitle>
       <form onSubmit={handleSubmit}>
         <S.FoldersList>
           {folders.map((folder, index) => (

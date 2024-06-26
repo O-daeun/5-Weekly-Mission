@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Modal from '../Modal/ModalLayout';
 import * as S from './LinkInput.styled';
+import AddToFolderModal from '../Modal/Contents/AddToFolderModal';
 
 interface Props {
   folderNames: string[];
@@ -34,10 +35,10 @@ export default function LinkInput({
         <S.StyledButton text='추가하기' type='submit' />
       </S.Form>
       {isVisibleModal && (
-        <Modal
+        <AddToFolderModal
           title='폴더에 추가'
           semiTitle={link}
-          button='추가하기'
+          buttonText='추가하기'
           folders={folderNames}
           counts={itemCountsInEachFolder}
           onClose={setIsVisibleModal}
