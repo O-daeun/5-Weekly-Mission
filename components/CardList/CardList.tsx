@@ -1,27 +1,17 @@
-import { LinkInterface } from '@/interfaces';
+import { FolderInterface, LinkInterface } from '@/interfaces';
 import Card from '../Card/Card';
 import * as S from './CardList.styled';
 
 interface Props {
   items: LinkInterface[] | undefined;
-  folderNames?: string[];
-  itemCountsInEachFolder?: number[];
+  folders: FolderInterface[];
 }
 
-export default function CardList({
-  items,
-  folderNames,
-  itemCountsInEachFolder,
-}: Props) {
+export default function CardList({ items, folders }: Props) {
   return (
     <S.List>
       {items?.map((item) => (
-        <Card
-          key={item.id}
-          item={item}
-          folderNames={folderNames}
-          itemCountsInEachFolder={itemCountsInEachFolder}
-        />
+        <Card key={item.id} item={item} folders={folders} />
       ))}
     </S.List>
   );

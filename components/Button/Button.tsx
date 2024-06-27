@@ -12,6 +12,7 @@ export default function Button({
   link,
   onClick,
   type,
+  disabled,
 }: Props) {
   return (
     <>
@@ -20,7 +21,12 @@ export default function Button({
           {text}
         </S.StyledLink>
       ) : (
-        <S.Button className={className} type={type} onClick={onClick}>
+        <S.Button
+          className={className}
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+        >
           {text}
         </S.Button>
       )}

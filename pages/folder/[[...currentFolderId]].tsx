@@ -25,9 +25,7 @@ const All_FOLDER = {
 export default function FolderPage() {
   const router = useRouter();
   const { currentFolderId } = router.query;
-
   const [searchText, setSearchText] = useState('');
-  const [folderNames, setFolderNames] = useState(['']); //
   const [folders, setFolders] = useState([
     {
       id: 0,
@@ -40,7 +38,6 @@ export default function FolderPage() {
   const [currentFolder, setCurrentFolder] = useState(All_FOLDER);
   const [links, setLinks] = useState<LinkInterface[]>();
   const [filteredLinks, setFilteredLinks] = useState<LinkInterface[]>();
-  const [itemCountsInEachFolder, setItemCountsInEachFolder] = useState([0]);
   const [isVisibleAddFolderModal, setIsVisibleAddFolderModal] = useState(false);
   const [isVisibleShareFolderModal, setIsVisibleShareFolderModal] =
     useState(false);
@@ -79,11 +76,6 @@ export default function FolderPage() {
     if (user) {
       const nextFolders: FolderInterface[] = await getFolders(0);
       setFolders(nextFolders);
-
-      const nextFolderNames = nextFolders.map((item) => item.name);
-      const nextItemCounts = nextFolders.map((item) => item.link_count);
-      setFolderNames(nextFolderNames);
-      setItemCountsInEachFolder(nextItemCounts);
     }
   };
 
@@ -145,10 +137,7 @@ export default function FolderPage() {
   return (
     <Layout>
       <S.StyledTopWrap>
-        <LinkInput
-          folderNames={folderNames}
-          itemCountsInEachFolder={itemCountsInEachFolder}
-        />
+        <LinkInput folders={folders} />
       </S.StyledTopWrap>
       <SectionWrap>
         <Search text={searchText} setText={setSearchText} />
@@ -194,8 +183,7 @@ export default function FolderPage() {
         {links && (
           <CardList
             items={searchText ? filteredLinks : links}
-            folderNames={folderNames}
-            itemCountsInEachFolder={itemCountsInEachFolder}
+            folders={folders}
           />
         )}
       </SectionWrap>

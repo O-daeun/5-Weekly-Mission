@@ -1,3 +1,4 @@
+import { AddLink } from '@/interfaces/api';
 import axios from 'axios';
 
 const BASIC_URL = 'https://bootcamp-api.codeit.kr/api/linkbrary/v1';
@@ -74,6 +75,21 @@ export async function addFolder(newFolderName: string) {
     `${BASIC_URL}/folders`,
     {
       name: newFolderName,
+    },
+    {
+      headers: {
+        Authorization: localStorage.accessToken,
+      },
+    }
+  );
+}
+
+export async function addLink({ url, folderId }: AddLink) {
+  const response = await axios.post(
+    `${BASIC_URL}/links`,
+    {
+      url,
+      folderId,
     },
     {
       headers: {

@@ -7,6 +7,7 @@ import * as S from './Card.styled';
 import star from '@/public/images/star_icon.png';
 import kebab from '@/public/images/kebab_icon.png';
 import defaultImage from '@/public/images/no-image.png';
+import { FolderInterface } from '@/interfaces';
 
 interface Props {
   item: {
@@ -15,15 +16,10 @@ interface Props {
     title: string;
     image_source: string;
   };
-  folderNames?: string[];
-  itemCountsInEachFolder?: number[];
+  folders: FolderInterface[];
 }
 
-export default function Card({
-  item,
-  folderNames,
-  itemCountsInEachFolder,
-}: Props) {
+export default function Card({ item, folders }: Props) {
   const { created_at, url, title, image_source } = item;
   const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
   const [isVisibledeleteCardModal, setIsVisibleDeleteCardModal] =
@@ -74,7 +70,7 @@ export default function Card({
           <S.TextWrap>
             <S.TextTopWrap>
               <S.DateAgo>{dateBetween}</S.DateAgo>
-              {folderNames && (
+              {folders && (
                 <button onClick={handleKebabClick}>
                   <Image src={kebab} alt='더보기' width='21' height='17' />
                 </button>
@@ -91,7 +87,7 @@ export default function Card({
             <S.Title>{title}</S.Title>
             <S.Date>{date}</S.Date>
           </S.TextWrap>
-          {folderNames && (
+          {folders && (
             <S.Star onClick={handleStarClick}>
               <Image src={star} alt='별' fill sizes='34px' />
             </S.Star>

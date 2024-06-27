@@ -17,6 +17,10 @@ const StyledButton = css`
   font-weight: 600;
   font-size: 1.125rem;
 
+  &:disabled {
+    cursor: default;
+  }
+
   @media (max-width: 767px) {
     padding: 10px 0;
     font-size: 0.875rem;
