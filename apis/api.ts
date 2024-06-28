@@ -99,6 +99,14 @@ export async function addLink({ url, folderId }: AddLink) {
   );
 }
 
+export async function deleteFolder(folderId: number) {
+  const response = await axios.delete(`${BASIC_URL}/folders/${folderId}`, {
+    headers: {
+      Authorization: localStorage.accessToken,
+    },
+  });
+}
+
 export async function deleteLink(linkId: number) {
   const response = await axios.delete(`${BASIC_URL}/links/${linkId}`, {
     headers: {

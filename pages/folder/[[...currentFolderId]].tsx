@@ -18,6 +18,7 @@ import DeleteIcon from '@/public/images/delete_icon.png';
 import { FolderInterface, LinkInterface } from '@/interfaces';
 import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
 import { useFolderId } from '@/contexts/folderIdContext';
+import DeleteFolderModal from '@/components/Modal/Contents/DeleteFolderModal';
 
 const All_FOLDER = {
   id: 0,
@@ -209,15 +210,13 @@ export default function FolderPage() {
           button='변경하기'
           onClose={setIsVisibleChangeFolderNameModal}
         />
-      )}
+      )}*/}
       {isVisibleDeleteFolderModal && (
-        <Modal
-          title='폴더 삭제'
-          semiTitle={currentFolder.name}
-          button='삭제하기'
+        <DeleteFolderModal
+          currentFolder={currentFolder}
           onClose={setIsVisibleDeleteFolder}
         />
-      )} */}
+      )}
     </Layout>
   );
 }

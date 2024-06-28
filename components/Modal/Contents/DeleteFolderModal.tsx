@@ -1,66 +1,38 @@
-import { FormEvent, useState } from 'react';
 import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
-import { useMutation } from '@tanstack/react-query';
-import { addLink } from '@/apis/api';
-import { FolderInterface } from '@/interfaces';
-import { AddLink } from '@/interfaces/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteFolder } from '@/apis/api';
 import { useRouter } from 'next/router';
-import { useFolderId } from '@/contexts/folderIdContext';
+import { FolderInterface } from '@/interfaces';
 
-interface AddToFolderModalProps {
-  link: string;
+interface DeleteFolderModalProps {
+  currentFolder: FolderInterface;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  folders: FolderInterface[];
 }
 
-export default function AddToFolderModal({
-  link,
+export default function DeleteFolderModal({
+  currentFolder,
   onClose,
-  folders,
-}: AddToFolderModalProps) {
+}: DeleteFolderModalProps) {
+  const queryClient = useQueryClient();
   const router = useRouter();
-  const currentFolderId = useFolderId();
-
-  const [checkedId, setCheckedId] = useState<number | null>(null);
-
-  const addToFolderMutation = useMutation({
-    mutationFn: ({ url: link, folderId: checkedId }: AddLink) =>
-      addLink({ url: link, folderId: checkedId }),
+  const deleteFolderMutation = useMutation({
+    mutationFn: (id: number) => deleteFolder(id),
     onSuccess: () => {
-      router.push(`/folder/${currentFolderId}`);
+      // queryClient.invalidateQueries('link');
+      router.replace('/folder');
     },
   });
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    addToFolderMutation.mutate({ url: link, folderId: checkedId });
+  const handleClick = () => {
+    deleteFolderMutation.mutate(currentFolder.id);
     onClose(false);
   };
 
   return (
-    <ModalLayout title='링크 삭제' onClose={onClose}>
-      <S.SemiTitle>{link}</S.SemiTitle>
-      <form onSubmit={handleSubmit}>
-        <S.FoldersList>
-          {folders.map((folder) => (
-            <li key={folder.id}>
-              <input
-                type='radio'
-                id={folder.name}
-                name='folders'
-                value={folder.id}
-                onChange={() => setCheckedId(folder.id)}
-              />
-              <label htmlFor={folder.name}>
-                <h3>{folder.name}</h3>
-                <span>{folder.link_count}개 링크</span>
-              </label>
-            </li>
-          ))}
-        </S.FoldersList>
-        <S.StyledButton text='삭제하기' type='submit' />
-      </form>
+    <ModalLayout title='폴더 삭제' onClose={onClose}>
+      <S.SemiTitle>{currentFolder.name}</S.SemiTitle>
+      <S.StyledButton text='삭제하기' type='submit' onClick={handleClick} />
     </ModalLayout>
   );
 }

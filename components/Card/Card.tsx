@@ -25,7 +25,7 @@ interface Props {
 export default function Card({ item, folders }: Props) {
   const { id, created_at, url, title, image_source } = item;
   const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
-  const [isVisibledeleteCardModal, setIsVisibleDeleteCardModal] =
+  const [isVisibleDeleteCardModal, setIsVisibleDeleteCardModal] =
     useState(false);
   const [isVisibleAddInFolderModal, setIsVisibleAddInFolderModal] =
     useState(false);
@@ -97,7 +97,7 @@ export default function Card({ item, folders }: Props) {
           )}
         </Link>
       </S.Card>
-      {isVisibledeleteCardModal && (
+      {isVisibleDeleteCardModal && (
         <DeleteLinkModal
           link={url}
           linkId={id}
