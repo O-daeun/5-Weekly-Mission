@@ -5,6 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 import { addLink } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { AddLink } from '@/interfaces/api';
+import { useRouter } from 'next/router';
+import { useFolderId } from '@/contexts/folderIdContext';
 
 interface AddToFolderModalProps {
   title: string;
@@ -21,14 +23,18 @@ export default function AddToFolderModal({
   folders,
   buttonText,
 }: AddToFolderModalProps) {
+  const router = useRouter();
+  const currentFolderId = useFolderId();
+
   const [checkedId, setCheckedId] = useState<number | null>(null);
 
   const addToFolderMutation = useMutation({
     mutationFn: ({ url: link, folderId: checkedId }: AddLink) =>
       addLink({ url: link, folderId: checkedId }),
+    onSuccess: () => {
+      router.push(`/folder/${currentFolderId}`);
+    },
   });
-
-  console.log(typeof checkedId);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -46,7 +52,7 @@ export default function AddToFolderModal({
               <input
                 type='radio'
                 id={folder.name}
-                name={folder.name}
+                name='folders'
                 value={folder.id}
                 onChange={() => setCheckedId(folder.id)}
               />

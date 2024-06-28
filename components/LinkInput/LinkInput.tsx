@@ -15,6 +15,7 @@ export default function LinkInput({ folders }: Props) {
     e.preventDefault();
     setLink(text);
     setIsVisibleModal(true);
+    setText('');
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/contexts/UserContext';
@@ -16,6 +17,7 @@ import PenIcon from '@/public/images/pen_icon.png';
 import DeleteIcon from '@/public/images/delete_icon.png';
 import { FolderInterface, LinkInterface } from '@/interfaces';
 import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
+import { useFolderId } from '@/contexts/folderIdContext';
 
 const All_FOLDER = {
   id: 0,
@@ -24,7 +26,8 @@ const All_FOLDER = {
 
 export default function FolderPage() {
   const router = useRouter();
-  const { currentFolderId } = router.query;
+  const currentFolderId = useFolderId();
+
   const [searchText, setSearchText] = useState('');
   const [folders, setFolders] = useState([
     {
@@ -114,24 +117,20 @@ export default function FolderPage() {
     if (!localStorage.accessToken) {
       router.replace('/signin');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     handleLoadMenu();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
     handleLoadItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, currentFolderId]);
 
   useEffect(() => {
     if (links) {
       handleFilterItems(links);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   return (
