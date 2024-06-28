@@ -6,6 +6,7 @@ import { UserProvider } from '@/contexts/UserContext';
 import GlobalStyle from '@/styles/globals.styled';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FolderIdProvider } from '@/contexts/folderIdContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </FolderIdProvider>
         {!isAuthPage && <Footer />}
       </UserProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

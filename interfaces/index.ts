@@ -17,11 +17,10 @@ export interface FolderInterface {
 
 export interface LinkInterface {
   id: number;
+  favorite: boolean;
   created_at: string;
-  updated_at: string | null;
   url: string;
   title: string;
-  description: string;
   image_source: string;
-  folder_id: number;
+  description: string;
 }

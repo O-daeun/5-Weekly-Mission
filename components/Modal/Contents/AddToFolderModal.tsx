@@ -13,7 +13,6 @@ interface AddToFolderModalProps {
   link: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   folders: FolderInterface[];
-  buttonText: string;
 }
 
 export default function AddToFolderModal({
@@ -21,7 +20,6 @@ export default function AddToFolderModal({
   link,
   onClose,
   folders,
-  buttonText,
 }: AddToFolderModalProps) {
   const router = useRouter();
   const currentFolderId = useFolderId();
@@ -63,7 +61,7 @@ export default function AddToFolderModal({
             </li>
           ))}
         </S.FoldersList>
-        <S.StyledButton text={buttonText} type='submit' />
+        <S.StyledButton text='추가하기' type='submit' />
       </form>
     </ModalLayout>
   );

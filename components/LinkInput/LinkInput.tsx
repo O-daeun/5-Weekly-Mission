@@ -35,7 +35,6 @@ export default function LinkInput({ folders }: Props) {
         <AddToFolderModal
           title='폴더에 추가'
           link={link}
-          buttonText='추가하기'
           folders={folders}
           onClose={setIsVisibleModal}
         />

@@ -9,9 +9,11 @@ import kebab from '@/public/images/kebab_icon.png';
 import defaultImage from '@/public/images/no-image.png';
 import { FolderInterface } from '@/interfaces';
 import AddToFolderModal from '../Modal/Contents/AddToFolderModal';
+import DeleteLinkModal from '../Modal/Contents/DeleteLinkModal';
 
 interface Props {
   item: {
+    id: number;
     created_at: string;
     url: string;
     title: string;
@@ -21,7 +23,7 @@ interface Props {
 }
 
 export default function Card({ item, folders }: Props) {
-  const { created_at, url, title, image_source } = item;
+  const { id, created_at, url, title, image_source } = item;
   const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
   const [isVisibledeleteCardModal, setIsVisibleDeleteCardModal] =
     useState(false);
@@ -95,19 +97,17 @@ export default function Card({ item, folders }: Props) {
           )}
         </Link>
       </S.Card>
-      {/* {isVisibledeleteCardModal && (
-        <Modal
-          title='링크 삭제'
-          semiTitle={url}
-          button='삭제하기'
+      {isVisibledeleteCardModal && (
+        <DeleteLinkModal
+          link={url}
+          linkId={id}
           onClose={setIsVisibleDeleteCardModal}
         />
-      )} */}
+      )}
       {isVisibleAddInFolderModal && (
         <AddToFolderModal
           title='폴더에 추가'
           link={url}
-          buttonText='추가하기'
           folders={folders}
           onClose={setIsVisibleAddInFolderModal}
         />
