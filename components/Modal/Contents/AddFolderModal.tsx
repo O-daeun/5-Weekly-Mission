@@ -5,16 +5,10 @@ import { useMutation } from '@tanstack/react-query';
 import { addFolder } from '@/apis/api';
 
 interface AddFolderModalProps {
-  title: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  buttonText: string;
 }
 
-export default function AddFolderModal({
-  title,
-  onClose,
-  buttonText,
-}: AddFolderModalProps) {
+export default function AddFolderModal({ onClose }: AddFolderModalProps) {
   const [text, setText] = useState('');
   const addFolderMutation = useMutation({
     mutationFn: (newFolderName: string) => addFolder(newFolderName),
@@ -35,7 +29,7 @@ export default function AddFolderModal({
   };
 
   return (
-    <ModalLayout title={title} onClose={onClose}>
+    <ModalLayout title='폴더 추가' onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <S.Input
           type='text'
@@ -43,7 +37,7 @@ export default function AddFolderModal({
           value={text}
           onChange={handleTextChange}
         />
-        <S.StyledButton text={buttonText} type='submit' />
+        <S.StyledButton text='추가하기' type='submit' />
       </form>
     </ModalLayout>
   );

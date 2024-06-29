@@ -20,6 +20,7 @@ import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
 import { useFolderId } from '@/contexts/folderIdContext';
 import DeleteFolderModal from '@/components/Modal/Contents/DeleteFolderModal';
 import EditFolderNameModal from '@/components/Modal/Contents/EditFolderNameModal';
+import ShardFolderModal from '@/components/Modal/Contents/ShareFolderModal';
 
 const All_FOLDER = {
   id: 0,
@@ -193,20 +194,14 @@ export default function FolderPage() {
         )}
       </SectionWrap>
       {isVisibleAddFolderModal && (
-        <AddFolderModal
-          title='폴더 추가'
-          buttonText='추가하기'
-          onClose={setIsVisibleAddFolderModal}
-        />
+        <AddFolderModal onClose={setIsVisibleAddFolderModal} />
       )}
-      {/* {isVisibleShareFolderModal && (
-        <Modal
-          title='폴더 공유'
-          semiTitle={currentFolder.name}
-          folderId={currentFolder.id}
+      {isVisibleShareFolderModal && (
+        <ShardFolderModal
+          currentFolder={currentFolder}
           onClose={setIsVisibleShareFolderModal}
         />
-      )} */}
+      )}
       {isVisibleChangeFolderNameModal && (
         <EditFolderNameModal
           currentFolder={currentFolder}

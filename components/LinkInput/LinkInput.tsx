@@ -33,7 +33,6 @@ export default function LinkInput({ folders }: Props) {
       </S.Form>
       {isVisibleModal && (
         <AddToFolderModal
-          title='폴더에 추가'
           link={link}
           folders={folders}
           onClose={setIsVisibleModal}

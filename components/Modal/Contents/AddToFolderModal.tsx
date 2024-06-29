@@ -9,14 +9,12 @@ import { useRouter } from 'next/router';
 import { useFolderId } from '@/contexts/folderIdContext';
 
 interface AddToFolderModalProps {
-  title: string;
   link: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   folders: FolderInterface[];
 }
 
 export default function AddToFolderModal({
-  title,
   link,
   onClose,
   folders,
@@ -40,7 +38,7 @@ export default function AddToFolderModal({
   };
 
   return (
-    <ModalLayout title={title} onClose={onClose}>
+    <ModalLayout title='폴더에 추가' onClose={onClose}>
       <S.SemiTitle>{link}</S.SemiTitle>
       <form onSubmit={handleSubmit}>
         <S.FoldersList>
