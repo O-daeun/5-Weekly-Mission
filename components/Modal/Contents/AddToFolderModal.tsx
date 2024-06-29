@@ -27,10 +27,9 @@ export default function AddToFolderModal({
   const [checkedId, setCheckedId] = useState<number | null>(null);
 
   const addToFolderMutation = useMutation({
-    mutationFn: ({ url: link, folderId: checkedId }: AddLink) =>
-      addLink({ url: link, folderId: checkedId }),
+    mutationFn: ({ url, folderId }: AddLink) => addLink({ url, folderId }),
     onSuccess: () => {
-      router.push(`/folder/${currentFolderId}`);
+      router.push(`/folder`);
     },
   });
 

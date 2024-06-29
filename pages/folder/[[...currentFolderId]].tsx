@@ -19,10 +19,14 @@ import { FolderInterface, LinkInterface } from '@/interfaces';
 import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
 import { useFolderId } from '@/contexts/folderIdContext';
 import DeleteFolderModal from '@/components/Modal/Contents/DeleteFolderModal';
+import EditFolderNameModal from '@/components/Modal/Contents/EditFolderNameModal';
 
 const All_FOLDER = {
   id: 0,
   name: '전체',
+  created_at: '',
+  favorite: false,
+  link_count: 0,
 };
 
 export default function FolderPage() {
@@ -39,7 +43,8 @@ export default function FolderPage() {
       link_count: 0,
     },
   ]);
-  const [currentFolder, setCurrentFolder] = useState(All_FOLDER);
+  const [currentFolder, setCurrentFolder] =
+    useState<FolderInterface>(All_FOLDER);
   const [links, setLinks] = useState<LinkInterface[]>();
   const [filteredLinks, setFilteredLinks] = useState<LinkInterface[]>();
   const [isVisibleAddFolderModal, setIsVisibleAddFolderModal] = useState(false);
@@ -201,16 +206,13 @@ export default function FolderPage() {
           folderId={currentFolder.id}
           onClose={setIsVisibleShareFolderModal}
         />
-      )}
+      )} */}
       {isVisibleChangeFolderNameModal && (
-        <Modal
-          title='폴더 이름 변경'
-          input
-          inputValue={currentFolder.name}
-          button='변경하기'
+        <EditFolderNameModal
+          currentFolder={currentFolder}
           onClose={setIsVisibleChangeFolderNameModal}
         />
-      )}*/}
+      )}
       {isVisibleDeleteFolderModal && (
         <DeleteFolderModal
           currentFolder={currentFolder}

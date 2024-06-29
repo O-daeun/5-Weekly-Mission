@@ -1,4 +1,4 @@
-import { AddLink } from '@/interfaces/api';
+import { AddLink, EditFolderName } from '@/interfaces/api';
 import axios from 'axios';
 
 const BASIC_URL = 'https://bootcamp-api.codeit.kr/api/linkbrary/v1';
@@ -113,4 +113,21 @@ export async function deleteLink(linkId: number) {
       Authorization: localStorage.accessToken,
     },
   });
+}
+
+export async function putFolderName({
+  folderId,
+  newFolderName,
+}: EditFolderName) {
+  const response = await axios.put(
+    `${BASIC_URL}/folders/${folderId}`,
+    {
+      name: newFolderName,
+    },
+    {
+      headers: {
+        Authorization: localStorage.accessToken,
+      },
+    }
+  );
 }
