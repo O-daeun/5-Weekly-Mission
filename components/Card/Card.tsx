@@ -8,7 +8,7 @@ import star from '@/public/images/star_icon.png';
 import kebab from '@/public/images/kebab_icon.png';
 import defaultImage from '@/public/images/no-image.png';
 import { FolderInterface } from '@/interfaces';
-import AddToFolderModal from '../Modal/Contents/AddToFolderModal';
+import AddLinkModal from '../Modal/Contents/AddLinkModal';
 import DeleteLinkModal from '../Modal/Contents/DeleteLinkModal';
 
 interface Props {
@@ -105,7 +105,7 @@ export default function Card({ item, folders }: Props) {
         />
       )}
       {isVisibleAddInFolderModal && folders && (
-        <AddToFolderModal
+        <AddLinkModal
           link={url}
           folders={folders}
           onClose={setIsVisibleAddInFolderModal}

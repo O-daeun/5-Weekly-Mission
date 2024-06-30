@@ -1,33 +1,33 @@
 import { FormEvent, useState } from 'react';
 import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addLink } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { AddLink } from '@/interfaces/api';
 import { useRouter } from 'next/router';
-import { useFolderId } from '@/contexts/folderIdContext';
 
-interface AddToFolderModalProps {
+interface AddLinkModalProps {
   link: string;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   folders: FolderInterface[];
 }
 
-export default function AddToFolderModal({
+export default function AddLinkModal({
   link,
   onClose,
   folders,
-}: AddToFolderModalProps) {
-  const router = useRouter();
-  const currentFolderId = useFolderId();
-
+}: AddLinkModalProps) {
   const [checkedId, setCheckedId] = useState<number | null>(null);
+
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const addToFolderMutation = useMutation({
     mutationFn: ({ url, folderId }: AddLink) => addLink({ url, folderId }),
     onSuccess: () => {
-      router.push(`/folder`);
+      queryClient.invalidateQueries({ queryKey: ['links', checkedId] });
+      router.push(`/folder/${checkedId}`);
     },
   });
 

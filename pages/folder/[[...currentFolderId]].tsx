@@ -32,9 +32,6 @@ const All_FOLDER = {
 };
 
 export default function FolderPage() {
-  const router = useRouter();
-  const currentFolderId = useFolderId();
-
   const [searchText, setSearchText] = useState('');
   const [folders, setFolders] = useState([
     {
@@ -57,7 +54,10 @@ export default function FolderPage() {
   const [isVisibleDeleteFolderModal, setIsVisibleDeleteFolder] =
     useState(false);
 
+  const router = useRouter();
+  const currentFolderId = useFolderId();
   const { user } = useContext(UserContext);
+
   const { data: nextFolders } = useQuery({
     queryKey: ['folders'],
     queryFn: () => getFolders(0),
@@ -146,7 +146,8 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadItems();
-  }, [user, currentFolderId, nextLinks]);
+    console.log('새로고침');
+  }, [user, currentFolderId, nextLinks, nextCurrentFolder]);
 
   useEffect(() => {
     if (links) {

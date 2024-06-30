@@ -19,7 +19,7 @@ export default function DeleteFolderModal({
   const deleteFolderMutation = useMutation({
     mutationFn: (id: number) => deleteFolder(id),
     onSuccess: () => {
-      // queryClient.invalidateQueries('link');
+      queryClient.invalidateQueries({ queryKey: ['folders'] });
       router.replace('/folder');
     },
   });

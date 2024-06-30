@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import * as S from './LinkInput.styled';
-import AddToFolderModal from '../Modal/Contents/AddToFolderModal';
+import AddLinkModal from '../Modal/Contents/AddLinkModal';
 import { FolderInterface } from '@/interfaces';
 
 interface Props {
@@ -32,7 +32,7 @@ export default function LinkInput({ folders }: Props) {
         <S.StyledButton text='추가하기' type='submit' disabled={!text} />
       </S.Form>
       {isVisibleModal && (
-        <AddToFolderModal
+        <AddLinkModal
           link={link}
           folders={folders}
           onClose={setIsVisibleModal}

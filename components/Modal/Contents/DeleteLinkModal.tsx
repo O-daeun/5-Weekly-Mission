@@ -2,7 +2,6 @@ import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteLink } from '@/apis/api';
-import { useRouter } from 'next/router';
 
 interface DeleteLinkModalProps {
   link: string;
@@ -16,12 +15,10 @@ export default function DeleteLinkModal({
   onClose,
 }: DeleteLinkModalProps) {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const deleteLinkMutation = useMutation({
     mutationFn: (linkId: number) => deleteLink(linkId),
     onSuccess: () => {
-      // queryClient.invalidateQueries('link');
-      router.reload();
+      queryClient.invalidateQueries({ queryKey: ['links'] });
     },
   });
 

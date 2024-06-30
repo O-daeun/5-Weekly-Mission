@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { putFolderName } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { EditFolderName } from '@/interfaces/api';
@@ -17,9 +17,17 @@ export default function EditFolderNameModal({
 }: EditFolderNameModalProps) {
   const [text, setText] = useState(currentFolder.name);
 
+  const queryClient = useQueryClient();
+
   const putFolderNameMutation = useMutation({
     mutationFn: ({ folderId, newFolderName }: EditFolderName) =>
       putFolderName({ folderId, newFolderName }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['folders'] });
+      queryClient.invalidateQueries({
+        queryKey: ['folder', String(currentFolder.id)],
+      });
+    },
   });
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,14 +36,10 @@ export default function EditFolderNameModal({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    putFolderNameMutation.mutate(
-      { folderId: currentFolder.id, newFolderName: text },
-      {
-        onSuccess: () => {
-          console.log('성공');
-        },
-      }
-    );
+    putFolderNameMutation.mutate({
+      folderId: currentFolder.id,
+      newFolderName: text,
+    });
     onClose(false);
   };
 
