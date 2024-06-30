@@ -12,11 +12,8 @@ export default function MenuLink({
     id: 0,
     name: '전체',
     created_at: '',
-    userId: 0,
     favorite: false,
-    link: {
-      count: 0,
-    },
+    link_count: 0,
   },
   currentFolderId,
 }: Props) {
