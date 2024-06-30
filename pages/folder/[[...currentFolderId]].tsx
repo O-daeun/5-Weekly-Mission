@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { MouseEvent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/contexts/UserContext';
 import Image from 'next/image';
@@ -21,6 +21,7 @@ import { useFolderId } from '@/contexts/folderIdContext';
 import DeleteFolderModal from '@/components/Modal/Contents/DeleteFolderModal';
 import EditFolderNameModal from '@/components/Modal/Contents/EditFolderNameModal';
 import ShardFolderModal from '@/components/Modal/Contents/ShareFolderModal';
+import { useQuery } from '@tanstack/react-query';
 
 const All_FOLDER = {
   id: 0,
@@ -57,6 +58,13 @@ export default function FolderPage() {
     useState(false);
 
   const { user } = useContext(UserContext);
+  const { data: nextFolders } = useQuery({
+    queryKey: ['folders'],
+    queryFn: () => getFolders(0),
+    enabled: !!user,
+  });
+
+  console.log(folders);
 
   const CONTROLS = [
     {
@@ -84,7 +92,6 @@ export default function FolderPage() {
 
   const handleLoadMenu = async () => {
     if (user) {
-      const nextFolders: FolderInterface[] = await getFolders(0);
       setFolders(nextFolders);
     }
   };
@@ -128,7 +135,7 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadMenu();
-  }, [user]);
+  }, [user, nextFolders]);
 
   useEffect(() => {
     handleLoadItems();
