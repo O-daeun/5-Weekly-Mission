@@ -146,7 +146,6 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadItems();
-    console.log('새로고침');
   }, [user, currentFolderId, nextLinks, nextCurrentFolder]);
 
   useEffect(() => {

@@ -25,11 +25,7 @@ export default function AddFolderModal({ onClose }: AddFolderModalProps) {
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addFolderMutation.mutate(text, {
-      onSuccess: () => {
-        console.log('성공');
-      },
-    });
+    addFolderMutation.mutate(text);
     onClose(false);
   };
 
