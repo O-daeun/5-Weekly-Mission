@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getFolderUser, getFolders, getLinks } from '@/apis/api';
@@ -33,7 +34,7 @@ export default function SharedPage() {
 
   const handleLinksLoad = async () => {
     if (user) {
-      const nextLinks = await getLinks(user.id, Number(folderId));
+      const nextLinks = await getLinks(Number(folderId));
       setLinks(nextLinks);
     }
   };

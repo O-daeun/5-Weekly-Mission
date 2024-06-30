@@ -19,7 +19,7 @@ interface Props {
     title: string;
     image_source: string;
   };
-  folders: FolderInterface[];
+  folders?: FolderInterface[];
 }
 
 export default function Card({ item, folders }: Props) {
@@ -104,9 +104,8 @@ export default function Card({ item, folders }: Props) {
           onClose={setIsVisibleDeleteCardModal}
         />
       )}
-      {isVisibleAddInFolderModal && (
+      {isVisibleAddInFolderModal && folders && (
         <AddToFolderModal
-          title='폴더에 추가'
           link={url}
           folders={folders}
           onClose={setIsVisibleAddInFolderModal}

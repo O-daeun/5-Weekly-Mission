@@ -4,7 +4,7 @@ import * as S from './CardList.styled';
 
 interface Props {
   items: LinkInterface[] | undefined;
-  folders: FolderInterface[];
+  folders?: FolderInterface[];
 }
 
 export default function CardList({ items, folders }: Props) {
