@@ -62,9 +62,27 @@ export default function FolderPage() {
     queryKey: ['folders'],
     queryFn: () => getFolders(0),
     enabled: !!user,
+    staleTime: 60 * 1000,
   });
-
-  console.log(folders);
+  const { data: nextCurrentFolder } = useQuery({
+    queryKey: ['folders', currentFolderId],
+    queryFn: async () => {
+      if (currentFolderId) {
+        const result = await getFolders(Number(currentFolderId));
+        return result[0];
+      } else {
+        return All_FOLDER;
+      }
+    },
+    enabled: !!user,
+    staleTime: 60 * 1000,
+  });
+  const { data: nextLinks } = useQuery({
+    queryKey: ['links', currentFolderId ? currentFolderId : '전체'],
+    queryFn: () => getLinks(currentFolderId ? Number(currentFolderId) : 0),
+    enabled: !!user,
+    staleTime: 60 * 1000,
+  });
 
   const CONTROLS = [
     {
@@ -91,24 +109,13 @@ export default function FolderPage() {
   ];
 
   const handleLoadMenu = async () => {
-    if (user) {
-      setFolders(nextFolders);
-    }
+    setFolders(nextFolders);
   };
 
   const handleLoadItems = async () => {
-    if (user) {
-      let nextLinks;
-      nextLinks = await getLinks(currentFolderId ? Number(currentFolderId) : 0);
-      setLinks(nextLinks);
-      const nextCurrentFolder = await getFolders(
-        currentFolderId ? Number(currentFolderId) : 0
-      );
-      setCurrentFolder(
-        nextCurrentFolder.length === 1 ? nextCurrentFolder[0] : All_FOLDER
-      );
-      handleFilterItems(nextLinks);
-    }
+    setLinks(nextLinks);
+    setCurrentFolder(nextCurrentFolder);
+    handleFilterItems(nextLinks);
   };
 
   const handleAddFolderButtonClick = () => {
@@ -139,7 +146,7 @@ export default function FolderPage() {
 
   useEffect(() => {
     handleLoadItems();
-  }, [user, currentFolderId]);
+  }, [user, currentFolderId, nextLinks]);
 
   useEffect(() => {
     if (links) {
