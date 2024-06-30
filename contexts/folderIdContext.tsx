@@ -23,12 +23,13 @@ interface FolderIdProviderProps {
 export function FolderIdProvider({ children }: FolderIdProviderProps) {
   const router = useRouter();
   const { currentFolderId } = router.query;
-  const [folderId, setFolderId] = useState<string | string[] | undefined>(
-    undefined
-  );
+  const [folderId, setFolderId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    setFolderId(currentFolderId);
+    const nextFolderId = Array.isArray(currentFolderId)
+      ? currentFolderId[0]
+      : currentFolderId;
+    setFolderId(nextFolderId);
   }, [currentFolderId]);
 
   return (
@@ -46,5 +47,6 @@ export function useFolderId() {
   }
 
   const { folderId } = context;
+
   return folderId;
 }

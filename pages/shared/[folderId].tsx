@@ -8,6 +8,7 @@ import Profile from '@/components/Profile/Profile';
 import CardList from '@/components/CardList/CardList';
 import * as S from '@/styles/SharedPage.styled';
 import { Layout, SectionWrap, TopWrap } from '@/styles/CommonPage.styled';
+import { useQuery } from '@tanstack/react-query';
 
 export default function SharedPage() {
   const router = useRouter();
@@ -19,24 +20,37 @@ export default function SharedPage() {
   const [folderName, setFolderName] = useState();
   const [user, setUser] = useState<UserInterface>();
 
-  const handleLoad = async () => {
-    if (folderId) {
-      const nextFolder = await getFolders(Number(folderId));
+  const { data: nextFolder } = useQuery({
+    queryKey: ['folder', folderId],
+    queryFn: () => getFolders(Number(folderId)),
+    enabled: !!folderId,
+    staleTime: 60 * 1000,
+  });
 
+  const { data: nextUser } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => getFolderUser(nextFolder[0]?.user_id),
+    enabled: !!nextFolder,
+    staleTime: 60 * 1000,
+  });
+  const { data: nextLinks } = useQuery({
+    queryKey: ['links', folderId],
+    queryFn: () => getLinks(Number(folderId)),
+    enabled: !!user,
+    staleTime: 60 * 1000,
+  });
+
+  const handleLoad = async () => {
+    if (nextFolder) {
       const nextFolderName =
         nextFolder.length === 1 ? nextFolder[0].name : '전체';
       setFolderName(nextFolderName);
-
-      const nextUser = await getFolderUser(nextFolder[0]?.user_id);
       setUser(nextUser);
     }
   };
 
   const handleLinksLoad = async () => {
-    if (user) {
-      const nextLinks = await getLinks(Number(folderId));
-      setLinks(nextLinks);
-    }
+    setLinks(nextLinks);
   };
 
   const handleFilterItems = () => {
@@ -57,11 +71,11 @@ export default function SharedPage() {
 
   useEffect(() => {
     handleLoad();
-  }, [folderId]);
+  }, [nextFolder, nextUser]);
 
   useEffect(() => {
     handleLinksLoad();
-  }, [user]);
+  }, [nextLinks]);
 
   return (
     <Layout>

@@ -65,7 +65,7 @@ export default function FolderPage() {
     staleTime: 60 * 1000,
   });
   const { data: nextCurrentFolder } = useQuery({
-    queryKey: ['folders', currentFolderId],
+    queryKey: ['folder', currentFolderId ? currentFolderId : '전체'],
     queryFn: async () => {
       if (currentFolderId) {
         const result = await getFolders(Number(currentFolderId));
