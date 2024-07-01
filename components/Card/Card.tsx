@@ -1,8 +1,7 @@
-import { ReactEventHandler, useState } from 'react';
+import { MouseEvent, ReactEventHandler, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { formatDateToString, formatDateToAgo } from '@/utils/date';
-import Modal from '../Modal/ModalLayout';
 import * as S from './Card.styled';
 import star from '@/public/images/star_icon.png';
 import kebab from '@/public/images/kebab_icon.png';
@@ -10,6 +9,7 @@ import defaultImage from '@/public/images/no-image.png';
 import { FolderInterface } from '@/interfaces';
 import AddLinkModal from '../Modal/Contents/AddLinkModal';
 import DeleteLinkModal from '../Modal/Contents/DeleteLinkModal';
+import { useModal, useSetModal } from '@/contexts/ModalContext';
 
 interface Props {
   item: {
@@ -24,12 +24,10 @@ interface Props {
 
 export default function Card({ item, folders }: Props) {
   const { id, created_at, url, title, image_source } = item;
-  const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
-  const [isVisibleDeleteCardModal, setIsVisibleDeleteCardModal] =
-    useState(false);
-  const [isVisibleAddInFolderModal, setIsVisibleAddInFolderModal] =
-    useState(false);
+  const [isOpenKebab, setIsOpenKebab] = useState(false);
 
+  const modal = useModal();
+  const setModal = useSetModal();
   const dateBetween = formatDateToAgo(created_at);
   const date = formatDateToString(created_at);
 
@@ -39,22 +37,22 @@ export default function Card({ item, folders }: Props) {
     e.currentTarget.src = defaultImage;
   };
 
-  const handleStarClick = (e: React.MouseEvent) => {
+  const handleStarClick = (e: MouseEvent) => {
     e.preventDefault();
     console.log('별 클릭');
   };
-  const handleKebabClick = (e: React.MouseEvent) => {
+  const handleKebabClick = (e: MouseEvent) => {
     e.preventDefault();
-    setIsVisibleKebabModal(!isVisibleKebabModal);
+    setIsOpenKebab(!isOpenKebab);
   };
 
-  const handleDeleteButtonClick = (e: React.MouseEvent) => {
+  const handleDeleteButtonClick = (e: MouseEvent) => {
     e.preventDefault();
-    setIsVisibleDeleteCardModal(true);
+    setModal({ isOpen: true, content: 'DeleteLinkModal' });
   };
-  const handleAddFolderButtonClick = (e: React.MouseEvent) => {
+  const handleAddLinkButtonClick = (e: MouseEvent) => {
     e.preventDefault();
-    setIsVisibleAddInFolderModal(true);
+    setModal({ isOpen: true, content: 'AddLinkModal' });
   };
 
   return (
@@ -78,10 +76,10 @@ export default function Card({ item, folders }: Props) {
                   <Image src={kebab} alt='더보기' width='21' height='17' />
                 </button>
               )}
-              {isVisibleKebabModal && (
+              {isOpenKebab && (
                 <S.KebabModal>
                   <button onClick={handleDeleteButtonClick}>삭제하기</button>
-                  <button onClick={handleAddFolderButtonClick}>
+                  <button onClick={handleAddLinkButtonClick}>
                     폴더에 추가
                   </button>
                 </S.KebabModal>
@@ -97,19 +95,13 @@ export default function Card({ item, folders }: Props) {
           )}
         </Link>
       </S.Card>
-      {isVisibleDeleteCardModal && (
-        <DeleteLinkModal
-          link={url}
-          linkId={id}
-          onClose={setIsVisibleDeleteCardModal}
-        />
-      )}
-      {isVisibleAddInFolderModal && folders && (
-        <AddLinkModal
-          link={url}
-          folders={folders}
-          onClose={setIsVisibleAddInFolderModal}
-        />
+
+      {modal.isOpen && modal.content === 'DeleteLinkModal' ? (
+        <DeleteLinkModal link={url} linkId={id} />
+      ) : modal.content === 'AddLinkModal' ? (
+        <AddLinkModal link={url} folders={folders} />
+      ) : (
+        ''
       )}
     </>
   );

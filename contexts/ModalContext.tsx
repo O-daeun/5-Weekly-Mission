@@ -10,7 +10,7 @@ import {
 
 interface ModalValue {
   isOpen: boolean;
-  content: string | null;
+  content: string;
 }
 interface ModalContextValue {
   modal: ModalValue;
@@ -20,7 +20,7 @@ interface ModalContextValue {
 const defaultModalValue: ModalContextValue = {
   modal: {
     isOpen: false,
-    content: null,
+    content: '',
   },
   setModal: () => {},
 };
@@ -34,7 +34,7 @@ interface ModalProviderProps {
 export function ModalProvider({ children }: ModalProviderProps) {
   const [modal, setModal] = useState<ModalValue>({
     isOpen: false,
-    content: null,
+    content: '',
   });
 
   const contextValue = useMemo(

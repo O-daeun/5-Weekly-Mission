@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { putFolderName } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { EditFolderName } from '@/interfaces/api';
+import { useSetModal } from '@/contexts/ModalContext';
 
 interface EditFolderNameModalProps {
   currentFolder: FolderInterface;
@@ -16,6 +17,7 @@ export default function EditFolderNameModal({
   const [text, setText] = useState(currentFolder.name);
 
   const queryClient = useQueryClient();
+  const setModal = useSetModal();
 
   const putFolderNameMutation = useMutation({
     mutationFn: ({ folderId, newFolderName }: EditFolderName) =>
@@ -38,6 +40,7 @@ export default function EditFolderNameModal({
       folderId: currentFolder.id,
       newFolderName: text,
     });
+    setModal({ isOpen: false, content: '' });
   };
 
   return (

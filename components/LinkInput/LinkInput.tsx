@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import * as S from './LinkInput.styled';
 import AddLinkModal from '../Modal/Contents/AddLinkModal';
 import { FolderInterface } from '@/interfaces';
+import { useModal, useSetModal } from '@/contexts/ModalContext';
 
 interface Props {
   folders: FolderInterface[];
@@ -10,12 +11,15 @@ interface Props {
 export default function LinkInput({ folders }: Props) {
   const [text, setText] = useState('');
   const [link, setLink] = useState('');
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  const modal = useModal();
+  const setModal = useSetModal();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLink(text);
-    setIsVisibleModal(true);
     setText('');
+    setModal({ isOpen: true, content: 'AddLinkModal' });
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -31,12 +35,8 @@ export default function LinkInput({ folders }: Props) {
         />
         <S.StyledButton text='추가하기' type='submit' disabled={!text} />
       </S.Form>
-      {isVisibleModal && (
-        <AddLinkModal
-          link={link}
-          folders={folders}
-          onClose={setIsVisibleModal}
-        />
+      {modal.isOpen && modal.content === 'AddLinkModal' && (
+        <AddLinkModal link={link} folders={folders} />
       )}
     </>
   );

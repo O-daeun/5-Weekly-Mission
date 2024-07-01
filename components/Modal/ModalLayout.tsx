@@ -12,7 +12,7 @@ interface Props {
 export default function ModalLayout({ title, children }: Props) {
   const setModal = useSetModal();
   const handleCloseClick = () => {
-    setModal({ isOpen: false, content: null });
+    setModal({ isOpen: false, content: '' });
   };
 
   return (

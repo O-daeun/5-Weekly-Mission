@@ -9,6 +9,7 @@ export default function AddFolderModal() {
   const [text, setText] = useState('');
 
   const queryClient = useQueryClient();
+  const setModal = useSetModal();
 
   const addFolderMutation = useMutation({
     mutationFn: (newFolderName: string) => addFolder(newFolderName),
@@ -23,6 +24,7 @@ export default function AddFolderModal() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     addFolderMutation.mutate(text);
+    setModal({ isOpen: false, content: '' });
   };
 
   return (

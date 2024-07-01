@@ -1,52 +1,45 @@
 import { FormEvent, useState } from 'react';
 import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addLink } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { AddLink } from '@/interfaces/api';
 import { useRouter } from 'next/router';
+import { useSetModal } from '@/contexts/ModalContext';
 
 interface AddLinkModalProps {
   link: string;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  folders: FolderInterface[];
+  folders: FolderInterface[] | undefined;
 }
 
-export default function AddLinkModal({
-  link,
-  onClose,
-  folders,
-}: AddLinkModalProps) {
+export default function AddLinkModal({ link, folders }: AddLinkModalProps) {
   const [checkedId, setCheckedId] = useState<number | null>(null);
 
   const router = useRouter();
   const queryClient = useQueryClient();
+  const setModal = useSetModal();
 
   const addToFolderMutation = useMutation({
     mutationFn: ({ url, folderId }: AddLink) => addLink({ url, folderId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['links', checkedId] });
       router.push(`/folder/${checkedId}`);
+      setModal({ isOpen: false, content: '' });
     },
   });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     addToFolderMutation.mutate({ url: link, folderId: checkedId });
-    onClose(false);
   };
 
   return (
-    <ModalLayout title='폴더에 추가' onClose={onClose}>
+    <ModalLayout title='폴더에 추가'>
       <S.SemiTitle>{link}</S.SemiTitle>
       <form onSubmit={handleSubmit}>
         <S.FoldersList>
-          {folders.map((folder) => (
+          {folders?.map((folder) => (
             <li key={folder.id}>
               <input
                 type='radio'
