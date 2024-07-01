@@ -48,11 +48,11 @@ export default function Card({ item, folders }: Props) {
 
   const handleDeleteButtonClick = (e: MouseEvent) => {
     e.preventDefault();
-    setModal({ isOpen: true, content: 'DeleteLinkModal' });
+    setModal({ isOpen: true, content: `DeleteLinkModal ${id}` });
   };
   const handleAddLinkButtonClick = (e: MouseEvent) => {
     e.preventDefault();
-    setModal({ isOpen: true, content: 'AddLinkModal' });
+    setModal({ isOpen: true, content: `AddLinkModal ${id}` });
   };
 
   return (
@@ -96,9 +96,9 @@ export default function Card({ item, folders }: Props) {
         </Link>
       </S.Card>
 
-      {modal.isOpen && modal.content === 'DeleteLinkModal' ? (
+      {modal.isOpen && modal.content === `DeleteLinkModal ${id}` ? (
         <DeleteLinkModal link={url} linkId={id} />
-      ) : modal.content === 'AddLinkModal' ? (
+      ) : modal.content === `AddLinkModal ${id}` ? (
         <AddLinkModal link={url} folders={folders} />
       ) : (
         ''
