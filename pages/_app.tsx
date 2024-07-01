@@ -7,6 +7,7 @@ import GlobalStyle from '@/styles/globals.styled';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FolderIdProvider } from '@/contexts/folderIdContext';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ModalProvider } from '@/contexts/ModalContext';
 
 const queryClient = new QueryClient();
 
@@ -16,15 +17,17 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <GlobalStyle />
-        {!isAuthPage && <Header />}
-        <FolderIdProvider>
-          <Component {...pageProps} />
-        </FolderIdProvider>
-        {!isAuthPage && <Footer />}
-      </UserProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ModalProvider>
+        <UserProvider>
+          <GlobalStyle />
+          {!isAuthPage && <Header />}
+          <FolderIdProvider>
+            <Component {...pageProps} />
+          </FolderIdProvider>
+          {!isAuthPage && <Footer />}
+        </UserProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ModalProvider>
     </QueryClientProvider>
   );
 }

@@ -7,12 +7,10 @@ import { FolderInterface } from '@/interfaces';
 
 interface DeleteFolderModalProps {
   currentFolder: FolderInterface;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DeleteFolderModal({
   currentFolder,
-  onClose,
 }: DeleteFolderModalProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -26,11 +24,10 @@ export default function DeleteFolderModal({
 
   const handleClick = () => {
     deleteFolderMutation.mutate(currentFolder.id);
-    onClose(false);
   };
 
   return (
-    <ModalLayout title='폴더 삭제' onClose={onClose}>
+    <ModalLayout title='폴더 삭제'>
       <S.SemiTitle>{currentFolder.name}</S.SemiTitle>
       <S.StyledButton text='삭제하기' type='submit' onClick={handleClick} />
     </ModalLayout>

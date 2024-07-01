@@ -6,21 +6,20 @@ import linkIcon from '@/public/images/share_link.svg';
 import shareKakao from '@/apis/shareKakao';
 import Image from 'next/image';
 import { FolderInterface } from '@/interfaces';
+import { MouseEvent } from 'react';
 
-interface ShardFolderModalProps {
+interface ShareFolderModalProps {
   currentFolder: FolderInterface;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ShardFolderModal({
+export default function ShareFolderModal({
   currentFolder,
-  onClose,
-}: ShardFolderModalProps) {
+}: ShareFolderModalProps) {
   const SHARES = [
     {
       name: '카카오톡',
       imageSrc: KakaotalkIcon,
-      onClick: (e: React.MouseEvent) => {
+      onClick: (e: MouseEvent) => {
         shareKakao(e, currentFolder.name, currentFolder.id);
       },
     },
@@ -46,7 +45,7 @@ export default function ShardFolderModal({
   ];
 
   return (
-    <ModalLayout title='폴더 공유' onClose={onClose}>
+    <ModalLayout title='폴더 공유'>
       <S.SemiTitle>{currentFolder.name}</S.SemiTitle>
       <S.ShareList>
         {SHARES.map((share, index) => (

@@ -2,16 +2,17 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import * as S from './Modal.styled';
 import CloseImage from '@/public/images/close_button.svg';
+import { useSetModal } from '@/contexts/ModalContext';
 
 interface Props {
   title: string;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
   children: ReactNode;
 }
 
-export default function ModalLayout({ title, onClose, children }: Props) {
+export default function ModalLayout({ title, children }: Props) {
+  const setModal = useSetModal();
   const handleCloseClick = () => {
-    onClose(false);
+    setModal({ isOpen: false, content: null });
   };
 
   return (

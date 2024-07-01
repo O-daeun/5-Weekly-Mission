@@ -20,8 +20,9 @@ import AddFolderModal from '@/components/Modal/Contents/AddFolderModal';
 import { useFolderId } from '@/contexts/folderIdContext';
 import DeleteFolderModal from '@/components/Modal/Contents/DeleteFolderModal';
 import EditFolderNameModal from '@/components/Modal/Contents/EditFolderNameModal';
-import ShardFolderModal from '@/components/Modal/Contents/ShareFolderModal';
 import { useQuery } from '@tanstack/react-query';
+import { useModal, useSetModal } from '@/contexts/ModalContext';
+import ShareFolderModal from '@/components/Modal/Contents/ShareFolderModal';
 
 const All_FOLDER = {
   id: 0,
@@ -46,17 +47,12 @@ export default function FolderPage() {
     useState<FolderInterface>(All_FOLDER);
   const [links, setLinks] = useState<LinkInterface[]>();
   const [filteredLinks, setFilteredLinks] = useState<LinkInterface[]>();
-  const [isVisibleAddFolderModal, setIsVisibleAddFolderModal] = useState(false);
-  const [isVisibleShareFolderModal, setIsVisibleShareFolderModal] =
-    useState(false);
-  const [isVisibleChangeFolderNameModal, setIsVisibleChangeFolderNameModal] =
-    useState(false);
-  const [isVisibleDeleteFolderModal, setIsVisibleDeleteFolder] =
-    useState(false);
 
   const router = useRouter();
   const currentFolderId = useFolderId();
   const { user } = useContext(UserContext);
+  const modal = useModal();
+  const setModal = useSetModal();
 
   const { data: nextFolders } = useQuery({
     queryKey: ['folders'],
@@ -89,21 +85,21 @@ export default function FolderPage() {
       name: '공유',
       icon: ShareIcon,
       onClick: () => {
-        setIsVisibleShareFolderModal(true);
+        setModal({ isOpen: true, content: 'ShareFolderModal' });
       },
     },
     {
       name: '이름 변경',
       icon: PenIcon,
       onClick: () => {
-        setIsVisibleChangeFolderNameModal(true);
+        setModal({ isOpen: true, content: 'EditFolderNameModal' });
       },
     },
     {
       name: '삭제',
       icon: DeleteIcon,
       onClick: () => {
-        setIsVisibleDeleteFolder(true);
+        setModal({ isOpen: true, content: 'DeleteFolderModal' });
       },
     },
   ];
@@ -115,11 +111,10 @@ export default function FolderPage() {
   const handleLoadItems = async () => {
     setLinks(nextLinks);
     setCurrentFolder(nextCurrentFolder);
-    handleFilterItems(nextLinks);
   };
 
   const handleAddFolderButtonClick = () => {
-    setIsVisibleAddFolderModal(true);
+    setModal({ isOpen: true, content: 'AddFolderModal' });
   };
 
   const handleFilterItems = (prevLinks: LinkInterface[]) => {
@@ -207,26 +202,17 @@ export default function FolderPage() {
           />
         )}
       </SectionWrap>
-      {isVisibleAddFolderModal && (
-        <AddFolderModal onClose={setIsVisibleAddFolderModal} />
-      )}
-      {isVisibleShareFolderModal && (
-        <ShardFolderModal
-          currentFolder={currentFolder}
-          onClose={setIsVisibleShareFolderModal}
-        />
-      )}
-      {isVisibleChangeFolderNameModal && (
-        <EditFolderNameModal
-          currentFolder={currentFolder}
-          onClose={setIsVisibleChangeFolderNameModal}
-        />
-      )}
-      {isVisibleDeleteFolderModal && (
-        <DeleteFolderModal
-          currentFolder={currentFolder}
-          onClose={setIsVisibleDeleteFolder}
-        />
+
+      {modal.isOpen && modal.content === 'AddFolderModal' ? (
+        <AddFolderModal />
+      ) : modal.content === 'ShareFolderModal' ? (
+        <ShareFolderModal currentFolder={currentFolder} />
+      ) : modal.content === 'EditFolderNameModal' ? (
+        <EditFolderNameModal currentFolder={currentFolder} />
+      ) : modal.content === 'DeleteFolderModal' ? (
+        <DeleteFolderModal currentFolder={currentFolder} />
+      ) : (
+        ''
       )}
     </Layout>
   );

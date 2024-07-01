@@ -3,12 +3,9 @@ import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addFolder } from '@/apis/api';
+import { useSetModal } from '@/contexts/ModalContext';
 
-interface AddFolderModalProps {
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function AddFolderModal({ onClose }: AddFolderModalProps) {
+export default function AddFolderModal() {
   const [text, setText] = useState('');
 
   const queryClient = useQueryClient();
@@ -26,11 +23,10 @@ export default function AddFolderModal({ onClose }: AddFolderModalProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     addFolderMutation.mutate(text);
-    onClose(false);
   };
 
   return (
-    <ModalLayout title='폴더 추가' onClose={onClose}>
+    <ModalLayout title='폴더 추가'>
       <form onSubmit={handleSubmit}>
         <S.Input
           type='text'

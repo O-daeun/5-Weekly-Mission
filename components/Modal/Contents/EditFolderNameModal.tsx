@@ -8,12 +8,10 @@ import { EditFolderName } from '@/interfaces/api';
 
 interface EditFolderNameModalProps {
   currentFolder: FolderInterface;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function EditFolderNameModal({
   currentFolder,
-  onClose,
 }: EditFolderNameModalProps) {
   const [text, setText] = useState(currentFolder.name);
 
@@ -40,11 +38,10 @@ export default function EditFolderNameModal({
       folderId: currentFolder.id,
       newFolderName: text,
     });
-    onClose(false);
   };
 
   return (
-    <ModalLayout title='폴더 이름 변경' onClose={onClose}>
+    <ModalLayout title='폴더 이름 변경'>
       <form onSubmit={handleSubmit}>
         <S.Input
           type='text'
