@@ -1,7 +1,11 @@
 import { FormEvent, useState } from 'react';
 import ModalLayout from '../ModalLayout';
 import * as S from '../Modal.styled';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { addLink } from '@/apis/api';
 import { FolderInterface } from '@/interfaces';
 import { AddLink } from '@/interfaces/api';
